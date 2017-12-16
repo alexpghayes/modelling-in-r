@@ -2,7 +2,7 @@
 
 Okay, now that we've taken a look at some interfaces and how they well they match up with the `model`/`model family` conception of modelling, let's imagine an interface that makes operations on `model` and `model family`s feel natural in R.
 
-Let's recall what we want out of a modelling interface:
+## What we want out of a modelling interface
 
 - Work primarily with `model family` objects, where hyperparameter selection is abstracted as far away from the user as possible
 - Scientists can provide smart cross-validation schemes when appropriate
@@ -11,7 +11,7 @@ Let's recall what we want out of a modelling interface:
 - Ensembling is easy
 - Tidy and pipeable data structures
 
-## Proposal (tentative start)
+## (Tentative) Proposal
 
 Since the `Scikit-Learn` interface is likely the most uniform and wide known interface, I think it's a good idea to use language from `Scikit-Learn` as much as possible.
 

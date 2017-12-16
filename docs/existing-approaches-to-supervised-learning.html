@@ -6,20 +6,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Some thoughts on modelling in R</title>
-  <meta name="description" content="This document contains some initial thoughts about what a grammar of modelling might look like in R.">
+  <meta name="description" content="Some thoughts on modelling in R">
   <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Some thoughts on modelling in R" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This document contains some initial thoughts about what a grammar of modelling might look like in R." />
+  
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Some thoughts on modelling in R" />
   
-  <meta name="twitter:description" content="This document contains some initial thoughts about what a grammar of modelling might look like in R." />
+  
   
 
 <meta name="author" content="Alex Hayes">
@@ -105,20 +105,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#scikit-learn"><i class="fa fa-check"></i><b>3.1</b> <code>Scikit-Learn</code></a></li>
 <li class="chapter" data-level="3.2" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#caret"><i class="fa fa-check"></i><b>3.2</b> <code>caret</code></a></li>
 <li class="chapter" data-level="3.3" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#mlr"><i class="fa fa-check"></i><b>3.3</b> <code>mlr</code></a></li>
-<li class="chapter" data-level="3.4" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#idiomatic-r-code-for-single-model"><i class="fa fa-check"></i><b>3.4</b> Idiomatic R code for single model</a></li>
+<li class="chapter" data-level="3.4" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>3.4</b> Idiomatic modelling in R</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html"><i class="fa fa-check"></i><b>4</b> Proposed interface for supervised learning</a><ul>
-<li class="chapter" data-level="4.1" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#proposal-tentative-start"><i class="fa fa-check"></i><b>4.1</b> Proposal (tentative start)</a></li>
+<li class="chapter" data-level="4.1" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#what-we-want-out-of-a-modelling-interface"><i class="fa fa-check"></i><b>4.1</b> What we want out of a modelling interface</a></li>
+<li class="chapter" data-level="4.2" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#tentative-proposal"><i class="fa fa-check"></i><b>4.2</b> (Tentative) Proposal</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>5</b> Extension to unsupervised learning</a><ul>
-<li class="chapter" data-level="5.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#pipelines"><i class="fa fa-check"></i><b>5.1</b> Pipelines?</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#special-cases"><i class="fa fa-check"></i><b>5.1.1</b> Special cases</a></li>
-</ul></li>
+<li class="chapter" data-level="5.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#pipelines"><i class="fa fa-check"></i><b>5.1</b> Pipelines</a></li>
+<li class="chapter" data-level="5.2" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#non-repeatable-mappings"><i class="fa fa-check"></i><b>5.2</b> Non-repeatable mappings</a></li>
+<li class="chapter" data-level="5.3" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>5.3</b> Invertible Mappings</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="utilities-and-other-important-functionality.html"><a href="utilities-and-other-important-functionality.html"><i class="fa fa-check"></i><b>6</b> Utilities and other important functionality</a></li>
 <li class="chapter" data-level="7" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html"><i class="fa fa-check"></i><b>7</b> How to make this happen</a><ul>
-<li class="chapter" data-level="7.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#how-to-implement-new-models"><i class="fa fa-check"></i><b>7.1</b> How to implement new models</a></li>
-<li class="chapter" data-level="7.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#wrapping-appropriately-implemented-models-together-into-a-machine-learning-library"><i class="fa fa-check"></i><b>7.2</b> Wrapping appropriately implemented models together into a machine learning library</a></li>
+<li class="chapter" data-level="7.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#roadblocksneeds-before-standardizing-a-modelling-interface-to-community-standardhow-to-implement-new-models"><i class="fa fa-check"></i><b>7.1</b> Roadblocks/needs before standardizing a modelling interface to community standardHow to implement new models</a></li>
+<li class="chapter" data-level="7.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#infrastructure-to-provide"><i class="fa fa-check"></i><b>7.2</b> Infrastructure to provide</a></li>
+<li class="chapter" data-level="7.3" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#misc"><i class="fa fa-check"></i><b>7.3</b> Misc</a></li>
 </ul></li>
 </ul>
 
@@ -138,7 +140,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="existing-approaches-to-supervised-learning" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Existing approaches to supervised learning</h1>
+<h1><span class="header-section-number">Part 3</span> Existing approaches to supervised learning</h1>
 <div id="scikit-learn" class="section level2">
 <h2><span class="header-section-number">3.1</span> <code>Scikit-Learn</code></h2>
 <p>In Scikit-Learn we can fit and predict with <code>model</code> objects quite intuitively:</p>
@@ -158,16 +160,23 @@ knn.fit(X, y)</code></pre></div>
 <p>I find this suboptimal for a couple reasons:</p>
 <ul>
 <li>We have to manually specify the hyperparameter space even though there are sane defaults</li>
-<li>If we wanted to use grid search or a different hyperparameter selection method, we’d have to change the specification of the hyperparameter space (i.e. we’d have to pass a list of values for <code>n_neighbors</code> rather than a distribution function for a grid search, etc, etc)</li>
-<li>This doesn’t allow us to take advantage of structure in the hyperparameter space. For example, with KNN, assuming we aren’t doing any fancy approximation methods, we really want to calculate pairwise distances exactly once, and then reuse that pairwise distance information to select <span class="math inline">\(k\)</span>. Instead we recalculate pairwise distances for each <span class="math inline">\(k\)</span>, which is inefficient. Similarly, for penalized regression, we have to refit the model for each <span class="math inline">\(\lambda\)</span> rather than efficiently fitting an entire solution path all at once.</li>
+<li>If we wanted to use grid search or a different hyperparameter selection method, we’d have to change the specification of the hyperparameter space. That is, We’d have to pass a list of values for <code>n_neighbors</code> rather than a distribution function for a grid search.</li>
+<li>This doesn’t allow us to take advantage of structure in the hyperparameter space. For example, with KNN, assuming we aren’t doing any fancy approximation methods, we really want to calculate pairwise distances exactly once, and then reuse that pairwise distance information to select <span class="math inline">\(k\)</span>. Instead we recalculate pairwise distances for each <span class="math inline">\(k\)</span>, which is inefficient.</li>
 </ul>
-<p>That is, the KNN model family abstraction is closely tied to the hyperparameter selection technique, when it would be cleaner to specify that we want to work with the KNN model family and then plug in whichever hyperparameter selection technique we choose.</p>
+<p>In some cases <code>sklearn</code> provides work arounds to this, for example, with RIDGE regression:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> sklearn <span class="im">import</span> linear_model
+reg <span class="op">=</span> linear_model.RidgeCV(alphas<span class="op">=</span>[<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">10.0</span>])
+reg.fit([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">1</span>]], [<span class="dv">0</span>, .<span class="dv">1</span>, <span class="dv">1</span>])       
+RidgeCV(alphas<span class="op">=</span>[<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">10.0</span>], cv<span class="op">=</span><span class="va">None</span>, fit_intercept<span class="op">=</span><span class="va">True</span>, scoring<span class="op">=</span><span class="va">None</span>,
+    normalize<span class="op">=</span><span class="va">False</span>)</code></pre></div>
+<p>Here we fit a <code>RidgeCV</code> object which efficiently performs cross-validation on the regularization parameter. However, now we have to remember to call <code>RidgeCV</code> rather than the standard grid search wrapper.</p>
+<p>It would be cleaner to specify that we want to work with the KNN/RIDGE model family and then plug in whichever hyperparameter selection technique we choose via the same interface.</p>
 <p>There are some things that <code>Scikit-Learn</code> does really well though:</p>
 <ul>
 <li>It has an extremely consistent interface that has been established as a communal standard within the Python community</li>
 <li>There are extension libraries that make automated machine learning and ensemble creation easy and pleasant</li>
 </ul>
-<p>Lastly, it’s worth noting that in <code>Scikit-Learn</code> you have instantiate a <code>KNeighborsClassifier</code> object and afterward call <code>fit</code> on it. This differs from R where a dominant paradigm is to instantiate a model and train it with a single class along the lines of</p>
+<p>Lastly, it’s worth noting that in <code>Scikit-Learn</code> you have to instantiate a <code>KNeighborsClassifier</code> object and afterward call <code>fit</code> on it. This differs from R where a dominant paradigm is to instantiate a model and train it with a single call, like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knn_model &lt;-<span class="st"> </span><span class="kw">knn_classifer</span>(y <span class="op">~</span><span class="st"> </span>., data, <span class="dt">k =</span> <span class="dv">5</span>)</code></pre></div>
 </div>
 <div id="caret" class="section level2">
@@ -195,6 +204,7 @@ knn_model &lt;-<span class="st"> </span><span class="kw">train</span>(y <span cl
 <li>The default hyperparameter search is not an extensive enough to ignore hyperparameter selection in the majority of cases and so you end up specifying a tuning grid most of the time. Ideally I think all models should function with default hyperparameter selection as in <code>h2o.automl()</code></li>
 <li>The result of <code>train</code> is an object of class <code>train</code>. That is, you know it’s a model family object, but the precise modelling technique is stored as a string. This means you have to write wrapper code if you want to add a model to the <code>caret</code> interface (i.e. it’s a nice package to work with, but it probably isn’t a great API to set as a communal standard for scientist producing packages)</li>
 <li>Ensembling is hard. There’s the <code>caretEnsemble</code> extension but I find the interface a messy.</li>
+<li>I find the names of several functions and function arguments unintuitive.</li>
 </ul>
 <p>It’s also worth noting that <code>caret</code> doesn’t require object instantiation like <code>Scikit-Learn</code> does.</p>
 </div>
@@ -212,10 +222,12 @@ model =<span class="st"> </span><span class="kw">train</span>(lrn, task, <span c
 
 pred =<span class="st"> </span><span class="kw">predict</span>(model, <span class="dt">task =</span> task, <span class="dt">subset =</span> test.set)
 <span class="kw">performance</span>(pred, <span class="dt">measures =</span> <span class="kw">list</span>(mmce, acc))</code></pre></div>
-<p>I think this interface has issues similar to <code>caret</code>s interface. In particular, I am strongly against manually specifying the learning task and think that the task at hand should be inferred from the class of the data object. I think prediction should be model-centric rather than outcome centric.</p>
+<p>I think this interface has issues similar to <code>caret</code>s interface.</p>
+<p>Most importantly, however, I believe that the primary focus of supervised learning should be <code>model family</code>s, as opposed to <code>task</code>s. I strongly believe the task at hand should be inferred from the class of the data object.</p>
+<p>I think this is important because we often think about inference in terms of <code>model</code>s but almost never in terms of <code>task</code>s.</p>
 </div>
-<div id="idiomatic-r-code-for-single-model" class="section level2">
-<h2><span class="header-section-number">3.4</span> Idiomatic R code for single model</h2>
+<div id="idiomatic-modelling-in-r" class="section level2">
+<h2><span class="header-section-number">3.4</span> Idiomatic modelling in R</h2>
 <p>Let’s consider an imaginary package using an idiomatic R interface that performs lasso regression. A nicely written package might have an interface like so</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lasso)
 
@@ -229,13 +241,14 @@ lasso_object &lt;-<span class="st"> </span><span class="kw">lasso</span>(X, y, <
 lasso_cv_object &lt;-<span class="st"> </span><span class="kw">lasso_cv</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> df)</code></pre></div>
 <p>I think this is a clean interface and a good standard to keep until something better comes along. In the long term, I would like the community standard for modelling to change, because:</p>
 <ul>
-<li><p>When there isn’t a smart way to select to perform cross-validation, you have to write hyperparameter search code yourself, and small variations in interface design mean you have to do this for each different model you work with</p></li>
-<li><p>Unless there’s a <code>recipe</code> interface to the <code>lasso_cv</code> function there isn’t a way to do principled preprocessing when resampling to estimate prediction error</p></li>
-<li><p>Most of the time you work with multiple models, so it is incredible convenient to be able to do something like:</p></li>
+<li>When there isn’t a smart way to select to perform cross-validation, you have to write hyperparameter search code yourself, and small variations in interface design mean you have to do this for each different model you work with. That is, most of the time people work with multiple models, so it is incredibly convenient to be able to do something like:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_familys &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">lasso</span>(), <span class="kw">ridge</span>(), <span class="kw">OLS</span>())
 train_models &lt;-<span class="st"> </span><span class="kw">map</span>(models, <span class="op">~</span><span class="kw">fit</span>(model_familys, y <span class="op">~</span><span class="st"> </span>., data))</code></pre></div>
 <p>but this isn’t possible because each function has it’s own version of <code>fit</code>.</p>
+<ul>
+<li>Unless there’s a <code>recipe</code> interface to the <code>lasso_cv</code> function there isn’t a way to do principled preprocessing when resampling to estimate prediction error</li>
+</ul>
 
 </div>
 </div>

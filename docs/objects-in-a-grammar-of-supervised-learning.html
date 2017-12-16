@@ -6,20 +6,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Some thoughts on modelling in R</title>
-  <meta name="description" content="This document contains some initial thoughts about what a grammar of modelling might look like in R.">
+  <meta name="description" content="Some thoughts on modelling in R">
   <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Some thoughts on modelling in R" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This document contains some initial thoughts about what a grammar of modelling might look like in R." />
+  
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Some thoughts on modelling in R" />
   
-  <meta name="twitter:description" content="This document contains some initial thoughts about what a grammar of modelling might look like in R." />
+  
   
 
 <meta name="author" content="Alex Hayes">
@@ -105,20 +105,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#scikit-learn"><i class="fa fa-check"></i><b>3.1</b> <code>Scikit-Learn</code></a></li>
 <li class="chapter" data-level="3.2" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#caret"><i class="fa fa-check"></i><b>3.2</b> <code>caret</code></a></li>
 <li class="chapter" data-level="3.3" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#mlr"><i class="fa fa-check"></i><b>3.3</b> <code>mlr</code></a></li>
-<li class="chapter" data-level="3.4" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#idiomatic-r-code-for-single-model"><i class="fa fa-check"></i><b>3.4</b> Idiomatic R code for single model</a></li>
+<li class="chapter" data-level="3.4" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>3.4</b> Idiomatic modelling in R</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html"><i class="fa fa-check"></i><b>4</b> Proposed interface for supervised learning</a><ul>
-<li class="chapter" data-level="4.1" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#proposal-tentative-start"><i class="fa fa-check"></i><b>4.1</b> Proposal (tentative start)</a></li>
+<li class="chapter" data-level="4.1" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#what-we-want-out-of-a-modelling-interface"><i class="fa fa-check"></i><b>4.1</b> What we want out of a modelling interface</a></li>
+<li class="chapter" data-level="4.2" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#tentative-proposal"><i class="fa fa-check"></i><b>4.2</b> (Tentative) Proposal</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>5</b> Extension to unsupervised learning</a><ul>
-<li class="chapter" data-level="5.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#pipelines"><i class="fa fa-check"></i><b>5.1</b> Pipelines?</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#special-cases"><i class="fa fa-check"></i><b>5.1.1</b> Special cases</a></li>
-</ul></li>
+<li class="chapter" data-level="5.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#pipelines"><i class="fa fa-check"></i><b>5.1</b> Pipelines</a></li>
+<li class="chapter" data-level="5.2" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#non-repeatable-mappings"><i class="fa fa-check"></i><b>5.2</b> Non-repeatable mappings</a></li>
+<li class="chapter" data-level="5.3" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>5.3</b> Invertible Mappings</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="utilities-and-other-important-functionality.html"><a href="utilities-and-other-important-functionality.html"><i class="fa fa-check"></i><b>6</b> Utilities and other important functionality</a></li>
 <li class="chapter" data-level="7" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html"><i class="fa fa-check"></i><b>7</b> How to make this happen</a><ul>
-<li class="chapter" data-level="7.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#how-to-implement-new-models"><i class="fa fa-check"></i><b>7.1</b> How to implement new models</a></li>
-<li class="chapter" data-level="7.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#wrapping-appropriately-implemented-models-together-into-a-machine-learning-library"><i class="fa fa-check"></i><b>7.2</b> Wrapping appropriately implemented models together into a machine learning library</a></li>
+<li class="chapter" data-level="7.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#roadblocksneeds-before-standardizing-a-modelling-interface-to-community-standardhow-to-implement-new-models"><i class="fa fa-check"></i><b>7.1</b> Roadblocks/needs before standardizing a modelling interface to community standardHow to implement new models</a></li>
+<li class="chapter" data-level="7.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#infrastructure-to-provide"><i class="fa fa-check"></i><b>7.2</b> Infrastructure to provide</a></li>
+<li class="chapter" data-level="7.3" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#misc"><i class="fa fa-check"></i><b>7.3</b> Misc</a></li>
 </ul></li>
 </ul>
 
@@ -138,10 +140,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="objects-in-a-grammar-of-supervised-learning" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Objects in a grammar of supervised learning</h1>
+<h1><span class="header-section-number">Part 2</span> Objects in a grammar of supervised learning</h1>
 <p>When someone talks about supervised learning, they might say something like: “I fit K Nearest Neighbors on the dataset and got 57 percent accuracy.” This communicates the gist of what they did, but this isn’t enough information to reproduce what they actually did: we don’t know what value of <span class="math inline">\(k\)</span> or the distance metric they used.</p>
-<p>When someone says that they used K Nearest Neighbors, they are referring to a <strong>family of supervised learning models</strong>, that is, KNN with <span class="math inline">\(k \in \{1, 2, ...\}\)</span> and some distance metric from a list of metrics. Together all the possible values of <span class="math inline">\(k\)</span> combined with all the possible metrics form a <strong>hyperparameter space</strong>, and we hope that our friend has selected hyperparameters in some reasonable way.</p>
-<p>Once our friend has selected hyperparameters, say <span class="math inline">\(k=13\)</span> and Euclidean distance as a metric, they are now speaking about a specific, unambiguous <strong>model</strong>. Once someone gives us these details, we have enough information to reproduce the training process ourselves.</p>
+<p>When someone says that they used K Nearest Neighbors, they are referring to a <strong>family of supervised learning models</strong>, that is, KNN with <span class="math inline">\(k \in \{1, 2, ...\}\)</span> and some distance metric from a list of metrics, say, the <span class="math inline">\(\ell_p\)</span> metrics. Together all the possible values of <span class="math inline">\(k\)</span> combined with all the <span class="math inline">\(\ell_p\)</span> metrics form a <strong>hyperparameter space</strong>, and we have to hope that our friend has selected hyperparameters in some reasonable way.</p>
+<p>Once our friend has selected hyperparameters, say <span class="math inline">\(k=13\)</span> and Euclidean distance, they are now speaking about a specific, unambiguous <strong>model</strong>. Once someone gives us these details, we have enough information to reproduce the training process ourselves.</p>
 <p>These objects form the basis for our grammar:</p>
 <ul>
 <li><code>model family</code> = <code>modelling technique</code> + <code>hyperparameter space</code></li>
@@ -150,10 +152,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>As a concrete example, consider the <code>glmnet</code> package.</p>
 <ul>
 <li><code>glmnet</code> objects fit with a specific value of <span class="math inline">\(\lambda\)</span> correspond to <code>model</code> objects</li>
-<li><code>cv.glmnet</code> objects correspond to <code>model family</code>s containing performance information for various hyperparameter values</li>
+<li><code>cv.glmnet</code> objects correspond to a <code>model family</code> containing performance information for various hyperparameter values</li>
 </ul>
 <p>There are some important differences between <code>model family</code> objects and <code>model</code> objects. If we have some data, we know how to fit a <code>model</code>. With a <code>model family</code> that’s less obvious - we have to specify some hyperparameter selection method because it isn’t feasible to the train <code>model</code>s for all possible valuables of the hyperparameters. Additionally, we typically perform inference on <code>model</code>s rather than <code>model family</code>s.</p>
-<p>In practice what we’d like to do is specify a set of hyperparams and train <code>model</code> objects for sets of hyperparameter combinations. Together this set of models will form the <code>model family</code>. Each of the <code>models</code> contained in the <code>model family</code> will have difference predictive performance, so an important part of the model family is a specification of a performance metric (i.e. RMSE) and a performance assess strategy (i.e. cross-validation).</p>
+<p>In practice what we’d like to do is specify a set of hyperparameters and train <code>model</code> objects for sets of hyperparameter combinations. Together this set of models will form the <code>model family</code>. Each of the <code>model</code>s contained in the <code>model family</code> will have difference predictive performance, so an important part of the model family is a specification of a performance metric (i.e. RMSE) and a performance assess strategy (i.e. cross-validation).</p>
 <p>Keeping <code>model</code>s and <code>model family</code>s in mind, let’s think about how existing machine learning libraries work.</p>
 
 </div>

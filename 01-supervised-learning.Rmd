@@ -2,9 +2,9 @@
 
 When someone talks about supervised learning, they might say something like: "I fit K Nearest Neighbors on the dataset and got 57 percent accuracy." This communicates the gist of what they did, but this isn't enough information to reproduce what they actually did: we don't know what value of $k$ or the distance metric they used.
 
-When someone says that they used K Nearest Neighbors, they are referring to a **family of supervised learning models**, that is, KNN with $k \in \{1, 2, ...\}$ and some distance metric from a list of metrics. Together all the possible values of $k$ combined with all the possible metrics form a **hyperparameter space**, and we hope that our friend has selected hyperparameters in some reasonable way.
+When someone says that they used K Nearest Neighbors, they are referring to a **family of supervised learning models**, that is, KNN with $k \in \{1, 2, ...\}$ and some distance metric from a list of metrics, say, the $\ell_p$ metrics. Together all the possible values of $k$ combined with all the $\ell_p$ metrics form a **hyperparameter space**, and we have to hope that our friend has selected hyperparameters in some reasonable way.
 
-Once our friend has selected hyperparameters, say $k=13$ and Euclidean distance as a metric, they are now speaking about a specific, unambiguous **model**. Once someone gives us these details, we have enough information to reproduce the training process ourselves.
+Once our friend has selected hyperparameters, say $k=13$ and Euclidean distance, they are now speaking about a specific, unambiguous **model**. Once someone gives us these details, we have enough information to reproduce the training process ourselves.
 
 These objects form the basis for our grammar:
 
@@ -14,10 +14,10 @@ These objects form the basis for our grammar:
 As a concrete example, consider the `glmnet` package.
 
 - `glmnet` objects fit with a specific value of $\lambda$ correspond to `model` objects
-- `cv.glmnet` objects correspond to `model family`s containing performance information for various hyperparameter values
+- `cv.glmnet` objects correspond to a `model family` containing performance information for various hyperparameter values
 
 There are some important differences between `model family` objects and `model` objects. If we have some data, we know how to fit a `model`. With a `model family` that's less obvious - we have to specify some hyperparameter selection method because it isn't feasible to the train `model`s for all possible valuables of the hyperparameters. Additionally, we typically perform inference on `model`s rather than `model family`s.
 
-In practice what we'd like to do is specify a set of hyperparams and train `model` objects for sets of hyperparameter combinations. Together this set of models will form the `model family`. Each of the `models` contained in the `model family` will have difference predictive performance, so an important part of the model family is a specification of a performance metric (i.e. RMSE) and a performance assess strategy (i.e. cross-validation).
+In practice what we'd like to do is specify a set of hyperparameters and train `model` objects for sets of hyperparameter combinations. Together this set of models will form the `model family`. Each of the `model`s contained in the `model family` will have difference predictive performance, so an important part of the model family is a specification of a performance metric (i.e. RMSE) and a performance assess strategy (i.e. cross-validation).
 
 Keeping `model`s and `model family`s in mind, let's think about how existing machine learning libraries work.

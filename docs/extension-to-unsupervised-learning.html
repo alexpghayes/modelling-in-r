@@ -6,20 +6,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Some thoughts on modelling in R</title>
-  <meta name="description" content="This document contains some initial thoughts about what a grammar of modelling might look like in R.">
+  <meta name="description" content="Some thoughts on modelling in R">
   <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Some thoughts on modelling in R" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This document contains some initial thoughts about what a grammar of modelling might look like in R." />
+  
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Some thoughts on modelling in R" />
   
-  <meta name="twitter:description" content="This document contains some initial thoughts about what a grammar of modelling might look like in R." />
+  
   
 
 <meta name="author" content="Alex Hayes">
@@ -105,20 +105,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#scikit-learn"><i class="fa fa-check"></i><b>3.1</b> <code>Scikit-Learn</code></a></li>
 <li class="chapter" data-level="3.2" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#caret"><i class="fa fa-check"></i><b>3.2</b> <code>caret</code></a></li>
 <li class="chapter" data-level="3.3" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#mlr"><i class="fa fa-check"></i><b>3.3</b> <code>mlr</code></a></li>
-<li class="chapter" data-level="3.4" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#idiomatic-r-code-for-single-model"><i class="fa fa-check"></i><b>3.4</b> Idiomatic R code for single model</a></li>
+<li class="chapter" data-level="3.4" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>3.4</b> Idiomatic modelling in R</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html"><i class="fa fa-check"></i><b>4</b> Proposed interface for supervised learning</a><ul>
-<li class="chapter" data-level="4.1" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#proposal-tentative-start"><i class="fa fa-check"></i><b>4.1</b> Proposal (tentative start)</a></li>
+<li class="chapter" data-level="4.1" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#what-we-want-out-of-a-modelling-interface"><i class="fa fa-check"></i><b>4.1</b> What we want out of a modelling interface</a></li>
+<li class="chapter" data-level="4.2" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#tentative-proposal"><i class="fa fa-check"></i><b>4.2</b> (Tentative) Proposal</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>5</b> Extension to unsupervised learning</a><ul>
-<li class="chapter" data-level="5.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#pipelines"><i class="fa fa-check"></i><b>5.1</b> Pipelines?</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#special-cases"><i class="fa fa-check"></i><b>5.1.1</b> Special cases</a></li>
-</ul></li>
+<li class="chapter" data-level="5.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#pipelines"><i class="fa fa-check"></i><b>5.1</b> Pipelines</a></li>
+<li class="chapter" data-level="5.2" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#non-repeatable-mappings"><i class="fa fa-check"></i><b>5.2</b> Non-repeatable mappings</a></li>
+<li class="chapter" data-level="5.3" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>5.3</b> Invertible Mappings</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="utilities-and-other-important-functionality.html"><a href="utilities-and-other-important-functionality.html"><i class="fa fa-check"></i><b>6</b> Utilities and other important functionality</a></li>
 <li class="chapter" data-level="7" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html"><i class="fa fa-check"></i><b>7</b> How to make this happen</a><ul>
-<li class="chapter" data-level="7.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#how-to-implement-new-models"><i class="fa fa-check"></i><b>7.1</b> How to implement new models</a></li>
-<li class="chapter" data-level="7.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#wrapping-appropriately-implemented-models-together-into-a-machine-learning-library"><i class="fa fa-check"></i><b>7.2</b> Wrapping appropriately implemented models together into a machine learning library</a></li>
+<li class="chapter" data-level="7.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#roadblocksneeds-before-standardizing-a-modelling-interface-to-community-standardhow-to-implement-new-models"><i class="fa fa-check"></i><b>7.1</b> Roadblocks/needs before standardizing a modelling interface to community standardHow to implement new models</a></li>
+<li class="chapter" data-level="7.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#infrastructure-to-provide"><i class="fa fa-check"></i><b>7.2</b> Infrastructure to provide</a></li>
+<li class="chapter" data-level="7.3" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#misc"><i class="fa fa-check"></i><b>7.3</b> Misc</a></li>
 </ul></li>
 </ul>
 
@@ -138,31 +140,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="extension-to-unsupervised-learning" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Extension to unsupervised learning</h1>
+<h1><span class="header-section-number">Part 5</span> Extension to unsupervised learning</h1>
 <p>This interface could also be extended to unsupervised learning following the spirit of <code>Scikit-Learn</code> by replacing the <code>predict</code> method with <code>transform</code> in the unsupervised case.</p>
-<p><code>cv_model</code> metalearner default grids</p>
+<p>I also think there’s an important equivalent of a <code>model family</code> in the unsupervised domain. For example, k-means and convex clustering both involve some sort of hyperparameter selection.</p>
+<ul>
+<li>For convex clustering you want to select a penalization parameter according to some strategy, probably optimizing one of several proposed clustering statistics</li>
+<li>For k-means you want to take the mode of cluster assignments, so <code>predict(knn)</code> is probably a bad idea, while <code>predict(knn_family)</code> is more reasonable in practice. I don’t know of any R packages that have the functionality you’d assume from <code>predict(knn_family)</code>, I presume you always have to implement it yourself. I know <code>h2o</code> automatically selects <code>k</code>, but I’m not sure how the actual cluster assignments come about. I presume it’s reasonable though.</li>
+</ul>
 <div id="pipelines" class="section level2">
-<h2><span class="header-section-number">5.1</span> Pipelines?</h2>
-<p>Could just create supervised learning steps</p>
-<div id="special-cases" class="section level3">
-<h3><span class="header-section-number">5.1.1</span> Special cases</h3>
-<div id="non-repeatable-mappings" class="section level4">
-<h4><span class="header-section-number">5.1.1.1</span> Non-repeatable mappings</h4>
+<h2><span class="header-section-number">5.1</span> Pipelines</h2>
+<p><code>Scikit-Learn</code> offers pipelines that allow you to do things like do PCA on data and then fit a GBM to that data, but with an arbitrary number of steps. I’m curious how this should work with the current direction of modelling in R, where <code>recipes</code> would presumably take care of the <code>PCA</code>. What if you want to train a model on the GBM predictions? Do you need a new <code>pipeline</code> object, or do you make a <code>step_gbm</code> for a recipe?</p>
 </div>
-<div id="invertible-mappings" class="section level4">
-<h4><span class="header-section-number">5.1.1.2</span> Invertible Mappings</h4>
-<p>related to <code>recipes</code> but different</p>
-<p>it would nice to have a standard (S3 method?) for invertible mappings in the spirit of scale/unscale n some sense recipes does this, but only for the forward direction 1cale/unscale store information about the transform in the returned object, which i’m not sold on 1ut what about something like</p>
-<p>p# TODO: implement PCA example transformation, smart IRLBA/non-IRLBA selection</p>
-<p>supervised learning: models unsupervised learning: ??? transformation?</p>
-<p>clustering: cv equivalent to select number of clusters and average k-means assignments or penalty parameter for convex clustering</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_trans &lt;-<span class="st"> </span><span class="kw">pca</span>(X)
-Z &lt;-<span class="st"> </span><span class="kw">forward</span>(pca_trans, X)
-X_recovered &lt;-<span class="st"> </span><span class="kw">backward</span>(pca_trans, Z)</code></pre></div>
-<p>klearn does this with the fit/fit_transform methods but i don’t think provides a standard for the inverse mapping</p>
+<div id="non-repeatable-mappings" class="section level2">
+<h2><span class="header-section-number">5.2</span> Non-repeatable mappings</h2>
+<p>It’s worth thinking about unsupervised techniques like <code>t-SNE</code> because you can <code>transform</code> data, but you can’t ever <code>fit</code> a <code>t-SNE</code> object because (non-parametric) <code>t-SNE</code> doesn’t define a mapping to a new space.</p>
+</div>
+<div id="invertible-mappings" class="section level2">
+<h2><span class="header-section-number">5.3</span> Invertible Mappings</h2>
+<p>I would like a standard (S3 method?) for invertible mappings in the spirit of <code>scale</code>/<code>unscale</code>. In some sense recipes does this, but only for the forward transformation. <code>scale</code>/<code>unscale</code> store information about the transformation in the returned object, which I’m not sold on. I’d prefer something like:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca &lt;-<span class="st"> </span><span class="kw">fit</span>(<span class="kw">new_pca</span>(), X)
+Z &lt;-<span class="st"> </span><span class="kw">transform</span>(pca, X)              <span class="co"># transform performs forward mapping</span>
+X_recovered &lt;-<span class="st"> </span><span class="kw">untransform</span>(pca, Z)  <span class="co"># untransform performs inverse mapping</span></code></pre></div>
+<p><strong>Side note</strong>: I’d love to see a wrapper around PCA that easily lets the user specify a number of principal components to drop into <code>irlba</code> for high dimensional situations when computing the full PCA is overkill.</p>
 
-</div>
-</div>
 </div>
 </div>
             </section>

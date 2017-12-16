@@ -27,17 +27,29 @@ knn.fit(X, y)
 I find this suboptimal for a couple reasons:
 
 - We have to manually specify the hyperparameter space even though there are sane defaults
-- If we wanted to use grid search or a different hyperparameter selection method, we'd have to change the specification of the hyperparameter space (i.e. we'd have to pass a list of values for `n_neighbors` rather than a distribution function for a grid search, etc, etc)
-- This doesn't allow us to take advantage of structure in the hyperparameter space. For example, with KNN, assuming we aren't doing any fancy approximation methods, we really want to calculate pairwise distances exactly once, and then reuse that pairwise distance information to select $k$. Instead we recalculate pairwise distances for each $k$, which is inefficient. Similarly, for penalized regression, we have to refit the model for each $\lambda$ rather than efficiently fitting an entire solution path all at once.
+- If we wanted to use grid search or a different hyperparameter selection method, we'd have to change the specification of the hyperparameter space. That is, We'd have to pass a list of values for `n_neighbors` rather than a distribution function for a grid search.
+- This doesn't allow us to take advantage of structure in the hyperparameter space. For example, with KNN, assuming we aren't doing any fancy approximation methods, we really want to calculate pairwise distances exactly once, and then reuse that pairwise distance information to select $k$. Instead we recalculate pairwise distances for each $k$, which is inefficient. 
 
-That is, the KNN model family abstraction is closely tied to the hyperparameter selection technique, when it would be cleaner to specify that we want to work with the KNN model family and then plug in whichever hyperparameter selection technique we choose.
+In some cases `sklearn` provides work arounds to this, for example, with RIDGE regression:
+
+```{python}
+from sklearn import linear_model
+reg = linear_model.RidgeCV(alphas=[0.1, 1.0, 10.0])
+reg.fit([[0, 0], [0, 0], [1, 1]], [0, .1, 1])       
+RidgeCV(alphas=[0.1, 1.0, 10.0], cv=None, fit_intercept=True, scoring=None,
+    normalize=False)
+```
+
+Here we fit a `RidgeCV` object which efficiently performs cross-validation on the regularization parameter. However, now we have to remember to call `RidgeCV` rather than the standard grid search wrapper.
+
+It would be cleaner to specify that we want to work with the KNN/RIDGE model family and then plug in whichever hyperparameter selection technique we choose via the same interface.
 
 There are some things that `Scikit-Learn` does really well though:
 
 - It has an extremely consistent interface that has been established as a communal standard within the Python community
 - There are extension libraries that make automated machine learning and ensemble creation easy and pleasant
 
-Lastly, it's worth noting that in `Scikit-Learn` you have instantiate a `KNeighborsClassifier` object and afterward call `fit` on it. This differs from R where a dominant paradigm is to instantiate a model and train it with a single class along the lines of 
+Lastly, it's worth noting that in `Scikit-Learn` you have to instantiate a `KNeighborsClassifier` object and afterward call `fit` on it. This differs from R where a dominant paradigm is to instantiate a model and train it with a single call, like so:
 
 ```{r}
 knn_model <- knn_classifer(y ~ ., data, k = 5)
@@ -73,6 +85,7 @@ Some things I don't like about the `caret` interface:
 - The default hyperparameter search is not an extensive enough to ignore hyperparameter selection in the majority of cases and so you end up specifying a tuning grid most of the time. Ideally I think all models should function with default hyperparameter selection as in `h2o.automl()`
 - The result of `train` is an object of class `train`. That is, you know it's a model family object, but the precise modelling technique is stored as a string. This means you have to write wrapper code if you want to add a model to the `caret` interface (i.e. it's a nice package to work with, but it probably isn't a great API to set as a communal standard for scientist producing packages)
 - Ensembling is hard. There's the `caretEnsemble` extension but I find the interface a messy.
+- I find the names of several functions and function arguments unintuitive.
 
 It's also worth noting that `caret` doesn't require object instantiation like `Scikit-Learn` does.
 
@@ -94,9 +107,13 @@ pred = predict(model, task = task, subset = test.set)
 performance(pred, measures = list(mmce, acc))
 ```
 
-I think this interface has issues similar to `caret`s interface. In particular, I am strongly against manually specifying the learning task and think that the task at hand should be inferred from the class of the data object. I think prediction should be model-centric rather than outcome centric.
+I think this interface has issues similar to `caret`s interface.
 
-## Idiomatic R code for single model
+Most importantly, however, I believe that the primary focus of supervised learning should be `model family`s, as opposed to `task`s. I strongly believe the task at hand should be inferred from the class of the data object.
+
+I think this is important because we often think about inference in terms of `model`s but almost never in terms of `task`s.
+
+## Idiomatic modelling in R
 
 Let's consider an imaginary package using an idiomatic R interface that performs lasso regression. A nicely written package might have an interface like so
 
@@ -123,11 +140,7 @@ lasso_cv_object <- lasso_cv(y ~ ., data = df)
 
 I think this is a clean interface and a good standard to keep until something better comes along. In the long term, I would like the community standard for modelling to change, because:
 
-- When there isn't a smart way to select to perform cross-validation, you have to write hyperparameter search code yourself, and small variations in interface design mean you have to do this for each different model you work with
-
-- Unless there's a `recipe` interface to the `lasso_cv` function there isn't a way to do principled preprocessing when resampling to estimate prediction error
-
-- Most of the time you work with multiple models, so it is incredible convenient to be able to do something like:
+- When there isn't a smart way to select to perform cross-validation, you have to write hyperparameter search code yourself, and small variations in interface design mean you have to do this for each different model you work with. That is, most of the time people work with multiple models, so it is incredibly convenient to be able to do something like:
 
 ```{r}
 model_familys <- list(lasso(), ridge(), OLS())
@@ -135,3 +148,5 @@ train_models <- map(models, ~fit(model_familys, y ~ ., data))
 ```
 
 but this isn't possible because each function has it's own version of `fit`.
+
+- Unless there's a `recipe` interface to the `lasso_cv` function there isn't a way to do principled preprocessing when resampling to estimate prediction error
