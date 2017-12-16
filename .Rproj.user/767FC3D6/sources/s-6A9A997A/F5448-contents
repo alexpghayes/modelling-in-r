@@ -1,7 +1,0 @@
-# Utilities and other important functionality
-
-There are other important usability components that I think are being developed elsewhere:
-
-- `recipes` package for specifying preprocessing pipeline
-- `yardstick` package for tidy metrics
-- `tidyposter` package for comparing trained models

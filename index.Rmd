@@ -1,6 +1,6 @@
 --- 
 title: "Some thoughts on modelling in R"
-author: "Alex"
+author: "Alex Hayes"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
