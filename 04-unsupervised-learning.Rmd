@@ -20,9 +20,12 @@ It's worth thinking about unsupervised techniques like `t-SNE` because you can `
 I would like a standard  (S3 method?) for invertible mappings in the spirit of `scale`/`unscale`. In some sense recipes does this, but only for the forward transformation. `scale`/`unscale` store information about the transformation in the returned object, which I'm not sold on. I'd prefer something like:
 
 ```{r}
-pca <- fit(new_pca(), X)
+pca_model <- pca(X)                 # recall pca(X) wraps fit(new_pca(), X)
 Z <- transform(pca, X)              # transform performs forward mapping
 X_recovered <- untransform(pca, Z)  # untransform performs inverse mapping
+
+# TODO: "model" probably isn't the best name for unsupervised transformations
+# even if those transformation do end up having "model"/"model_family" class
 ```
 
 **Side note**: I'd love to see a wrapper around PCA that easily lets the user specify a number of principal components to drop into `irlba` for high dimensional situations when computing the full PCA is overkill.

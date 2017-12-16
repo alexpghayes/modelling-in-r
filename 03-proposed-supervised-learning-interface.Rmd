@@ -29,7 +29,19 @@ knn_model <- fit(knn, design, data, k = 13, metric = "euclidean")
 #   - recipe, data frame
 #
 # multiple dispatch would be nice here, curious how to implement
+# this assumes default arguments for hyperparameter selection that need
+# to be thought about more
 knn_family <- fit(knn, design, data)
+
+# TO THINK ABOUT: not sure if hyperparameter definition being the sole
+# specification of model vs model_family output is a good idea
+
+# for convenience and to provide a standard interface, we define a wrapper
+# knn <- fit(new_knn(), design, data). now a machine learning package has
+# an interface matching current idiomatic R for interested parties. but 
+# new_* methods allow for convenient mapping of fit method, etc, that are
+# easiest when model instantiation and fitting are distinct
+knn_family <- knn(design, data)
 
 # get the best knn model. class c("knn", "model")
 best_knn_model <- extract_model(knn_family)
@@ -56,7 +68,8 @@ I don't have good ideas on how to specify `hp_space` at the moment.
 I also think the following would highly increase usability
 
 ```{r}
-bagged_model  <- bag(lasso(), ridge(), OLS(), n = 50)
-stacked_model <- stack(lasso(), ridge(), OLS(), metalearner = GLM())
-boosted_model <- boost(lasso(), ridge(), OLS(), loss = "some_loss")
+bagged_model  <- bag(new_lasso(), new_ridge(), new_ols(), n = 50)
+stacked_model <- stack(new_lasso(), new_ridge(), new_ols(),
+                       metalearner = new_glm())
+boosted_model <- boost(new_lasso(), new_ridge(), new_ols(), loss = "some_loss")
 ```

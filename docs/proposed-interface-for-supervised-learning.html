@@ -169,7 +169,19 @@ knn_model &lt;-<span class="st"> </span><span class="kw">fit</span>(knn, design,
 <span class="co">#   - recipe, data frame</span>
 <span class="co">#</span>
 <span class="co"># multiple dispatch would be nice here, curious how to implement</span>
+<span class="co"># this assumes default arguments for hyperparameter selection that need</span>
+<span class="co"># to be thought about more</span>
 knn_family &lt;-<span class="st"> </span><span class="kw">fit</span>(knn, design, data)
+
+<span class="co"># TO THINK ABOUT: not sure if hyperparameter definition being the sole</span>
+<span class="co"># specification of model vs model_family output is a good idea</span>
+
+<span class="co"># for convenience and to provide a standard interface, we define a wrapper</span>
+<span class="co"># knn &lt;- fit(new_knn(), design, data). now a machine learning package has</span>
+<span class="co"># an interface matching current idiomatic R for interested parties. but </span>
+<span class="co"># new_* methods allow for convenient mapping of fit method, etc, that are</span>
+<span class="co"># easiest when model instantiation and fitting are distinct</span>
+knn_family &lt;-<span class="st"> </span><span class="kw">knn</span>(design, data)
 
 <span class="co"># get the best knn model. class c(&quot;knn&quot;, &quot;model&quot;)</span>
 best_knn_model &lt;-<span class="st"> </span><span class="kw">extract_model</span>(knn_family)
@@ -191,9 +203,10 @@ class_probs &lt;-<span class="st"> </span><span class="kw">predict_proba</span>(
 </ul>
 <p>I don’t have good ideas on how to specify <code>hp_space</code> at the moment.</p>
 <p>I also think the following would highly increase usability</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bagged_model  &lt;-<span class="st"> </span><span class="kw">bag</span>(<span class="kw">lasso</span>(), <span class="kw">ridge</span>(), <span class="kw">OLS</span>(), <span class="dt">n =</span> <span class="dv">50</span>)
-stacked_model &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="kw">lasso</span>(), <span class="kw">ridge</span>(), <span class="kw">OLS</span>(), <span class="dt">metalearner =</span> <span class="kw">GLM</span>())
-boosted_model &lt;-<span class="st"> </span><span class="kw">boost</span>(<span class="kw">lasso</span>(), <span class="kw">ridge</span>(), <span class="kw">OLS</span>(), <span class="dt">loss =</span> <span class="st">&quot;some_loss&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bagged_model  &lt;-<span class="st"> </span><span class="kw">bag</span>(<span class="kw">new_lasso</span>(), <span class="kw">new_ridge</span>(), <span class="kw">new_ols</span>(), <span class="dt">n =</span> <span class="dv">50</span>)
+stacked_model &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="kw">new_lasso</span>(), <span class="kw">new_ridge</span>(), <span class="kw">new_ols</span>(),
+                       <span class="dt">metalearner =</span> <span class="kw">new_glm</span>())
+boosted_model &lt;-<span class="st"> </span><span class="kw">boost</span>(<span class="kw">new_lasso</span>(), <span class="kw">new_ridge</span>(), <span class="kw">new_ols</span>(), <span class="dt">loss =</span> <span class="st">&quot;some_loss&quot;</span>)</code></pre></div>
 
 </div>
 </div>

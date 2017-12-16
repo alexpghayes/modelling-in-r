@@ -158,9 +158,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="invertible-mappings" class="section level2">
 <h2><span class="header-section-number">5.3</span> Invertible Mappings</h2>
 <p>I would like a standard (S3 method?) for invertible mappings in the spirit of <code>scale</code>/<code>unscale</code>. In some sense recipes does this, but only for the forward transformation. <code>scale</code>/<code>unscale</code> store information about the transformation in the returned object, which I’m not sold on. I’d prefer something like:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca &lt;-<span class="st"> </span><span class="kw">fit</span>(<span class="kw">new_pca</span>(), X)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_model &lt;-<span class="st"> </span><span class="kw">pca</span>(X)                 <span class="co"># recall pca(X) wraps fit(new_pca(), X)</span>
 Z &lt;-<span class="st"> </span><span class="kw">transform</span>(pca, X)              <span class="co"># transform performs forward mapping</span>
-X_recovered &lt;-<span class="st"> </span><span class="kw">untransform</span>(pca, Z)  <span class="co"># untransform performs inverse mapping</span></code></pre></div>
+X_recovered &lt;-<span class="st"> </span><span class="kw">untransform</span>(pca, Z)  <span class="co"># untransform performs inverse mapping</span>
+
+<span class="co"># </span><span class="al">TODO</span><span class="co">: &quot;model&quot; probably isn&#39;t the best name for unsupervised transformations</span>
+<span class="co"># even if those transformation do end up having &quot;model&quot;/&quot;model_family&quot; class</span></code></pre></div>
 <p><strong>Side note</strong>: I’d love to see a wrapper around PCA that easily lets the user specify a number of principal components to drop into <code>irlba</code> for high dimensional situations when computing the full PCA is overkill.</p>
 
 </div>
