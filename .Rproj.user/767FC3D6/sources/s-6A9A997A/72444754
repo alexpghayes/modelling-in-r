@@ -7,15 +7,15 @@
     "folds" : "",
     "hash" : "0",
     "id" : "72444754",
-    "lastKnownWriteTime" : 1513393940,
-    "last_content_update" : 1513393940327,
+    "lastKnownWriteTime" : 1513395172,
+    "last_content_update" : 1513395172543,
     "path" : "C:/Users/alex/Desktop/modelling-in-r/index.Rmd",
     "project_path" : "index.Rmd",
     "properties" : {
-        "cursorPosition" : "21,0",
-        "scrollLine" : "5"
+        "cursorPosition" : "23,30",
+        "scrollLine" : "0"
     },
-    "relative_order" : 4,
+    "relative_order" : 3,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_markdown"

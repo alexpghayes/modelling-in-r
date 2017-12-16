@@ -1,23 +1,59 @@
 --- 
-title: "A Minimal Book Example"
-author: "Yihui Xie"
+title: "Some thoughts on modelling in R"
+author: "Alex"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 link-citations: yes
-description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+description: "This document contains some initial thoughts about what a grammar of modelling might look like in R."
 ---
 
-# Prerequisites
+# Motivation
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
-  
-The **bookdown** package can be installed from CRAN or Github:
-
-```{r eval=FALSE}
-install.packages("bookdown")
-# or the development version
-# devtools::install_github("rstudio/bookdown")
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
-Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading `#`.
+Each model in R essentially lives in its own package and has a unique interface. This introduces a large amount of cognitive load on data analysts. For example, suppose we want to use KNN. We might do something like this:
+
+```{r}
+library(class)
+library(e1071)
+library(tidyverse)
+
+data(Boston, package = "MASS")
+boston <- as_tibble(Boston)
+boston
+```
+
+```{r}
+train <- boston %>% 
+  slice(1:400)
+
+test <- boston %>% 
+  slice(401:506) %>% 
+  select(-medv)
+
+knn_preds <- knn(test = test,
+                 train = select(train, -medv),
+                 cl = train$medv,
+                 k = 5)
+```
+
+But if we want to use naive Bayes, we might end up writing code that looks like this:
+
+```{r}
+nb_model <- naiveBayes(medv ~ ., data = train)
+nb_preds <- predict(nb_model, newdata = test, type = "class")
+```
+
+This has some problems:
+
+  - `knn` generates predictions immediately on a test set, while `naiveBayes` creates a model object
+  - `knn` and `naiveBayes` have different interfaces for specifying design matrices and outcomes
+  - for `knn` we have to pass arguments `cl` and `k` even though it would be reasonable to select `k` by cross-validation and `cl` could be more succinctly expressed as an outcome in a formula
+  - the predictions from `naiveBayes` object are not by default the same type as the outcome the user inputs
+  
+That is, there isn't a consistent interface to the packages themselves, and the packages don't provide a conceptual framework that makes it easy to think about modelling.
+
+Before proposing an interface for modelling, I think it's worthwhile to step back and define the objects that we'd like to work with and some reasonable actions we should be able to perform with those objects.

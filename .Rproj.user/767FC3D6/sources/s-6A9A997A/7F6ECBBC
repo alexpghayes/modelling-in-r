@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1513395372918.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "7F6ECBBC",
+    "lastKnownWriteTime" : 1513395486,
+    "last_content_update" : 1513395486029,
+    "path" : "C:/Users/alex/Desktop/modelling-in-r/06-making-it-happen.Rmd",
+    "project_path" : "06-making-it-happen.Rmd",
+    "properties" : {
+        "cursorPosition" : "11,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

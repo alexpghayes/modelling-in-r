@@ -5,13 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2791391532",
+    "hash" : "0",
     "id" : "29FA286A",
-    "lastKnownWriteTime" : 1513384118,
-    "last_content_update" : 1513384118,
+    "lastKnownWriteTime" : 1513395332,
+    "last_content_update" : 1513395332732,
     "path" : "C:/Users/alex/Desktop/modelling-in-r/README.md",
     "project_path" : "README.md",
     "properties" : {
+        "cursorPosition" : "4,109",
+        "scrollLine" : "0"
     },
     "relative_order" : 1,
     "source_on_save" : false,

@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="objects-in-a-grammar-of-supervised-learning.html">
+<link rel="prev" href="extension-to-unsupervised-learning.html">
+<link rel="next" href="how-to-make-this-happen.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -136,44 +136,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Some thoughts on modelling in R</h1>
-<h4 class="author"><em>Alex</em></h4>
-<h4 class="date"><em>2017-12-15</em></h4>
-</div>
-<div id="motivation" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Motivation</h1>
-<p>Each model in R essentially lives in its own package and has a unique interface. This introduces a large amount of cognitive load on data analysts. For example, suppose we want to use KNN. We might do something like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(class)
-<span class="kw">library</span>(e1071)
-<span class="kw">library</span>(tidyverse)
-
-<span class="kw">data</span>(Boston, <span class="dt">package =</span> <span class="st">&quot;MASS&quot;</span>)
-boston &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(Boston)
-boston</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">train &lt;-<span class="st"> </span>boston <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>)
-
-test &lt;-<span class="st"> </span>boston <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">slice</span>(<span class="dv">401</span><span class="op">:</span><span class="dv">506</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>medv)
-
-knn_preds &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">test =</span> test,
-                 <span class="dt">train =</span> <span class="kw">select</span>(train, <span class="op">-</span>medv),
-                 <span class="dt">cl =</span> train<span class="op">$</span>medv,
-                 <span class="dt">k =</span> <span class="dv">5</span>)</code></pre></div>
-<p>But if we want to use naive Bayes, we might end up writing code that looks like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nb_model &lt;-<span class="st"> </span><span class="kw">naiveBayes</span>(medv <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> train)
-nb_preds &lt;-<span class="st"> </span><span class="kw">predict</span>(nb_model, <span class="dt">newdata =</span> test, <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>)</code></pre></div>
-<p>This has some problems:</p>
+<div id="utilities-and-other-important-functionality" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Utilities and other important functionality</h1>
+<p>There are other important usability components that I think are being developed elsewhere:</p>
 <ul>
-<li><code>knn</code> generates predictions immediately on a test set, while <code>naiveBayes</code> creates a model object</li>
-<li><code>knn</code> and <code>naiveBayes</code> have different interfaces for specifying design matrices and outcomes</li>
-<li>for <code>knn</code> we have to pass arguments <code>cl</code> and <code>k</code> even though it would be reasonable to select <code>k</code> by cross-validation and <code>cl</code> could be more succinctly expressed as an outcome in a formula</li>
-<li>the predictions from <code>naiveBayes</code> object are not by default the same type as the outcome the user inputs</li>
+<li><code>recipes</code> package for specifying preprocessing pipeline</li>
+<li><code>yardstick</code> package for tidy metrics</li>
+<li><code>tidyposter</code> package for comparing trained models</li>
 </ul>
-<p>That is, there isn’t a consistent interface to the packages themselves, and the packages don’t provide a conceptual framework that makes it easy to think about modelling.</p>
-<p>Before proposing an interface for modelling, I think it’s worthwhile to step back and define the objects that we’d like to work with and some reasonable actions we should be able to perform with those objects.</p>
 
 </div>
             </section>
@@ -181,8 +151,8 @@ nb_preds &lt;-<span class="st"> </span><span class="kw">predict</span>(nb_model,
           </div>
         </div>
       </div>
-
-<a href="objects-in-a-grammar-of-supervised-learning.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="extension-to-unsupervised-learning.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="how-to-make-this-happen.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
