@@ -25,14 +25,14 @@
 <meta name="author" content="Alex Hayes">
 
 
-<meta name="date" content="2017-12-15">
+<meta name="date" content="2017-12-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="utilities-and-other-important-functionality.html">
+<link rel="prev" href="extension-to-unsupervised-learning.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -109,18 +109,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html"><i class="fa fa-check"></i><b>4</b> Proposed interface for supervised learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#what-we-want-out-of-a-modelling-interface"><i class="fa fa-check"></i><b>4.1</b> What we want out of a modelling interface</a></li>
-<li class="chapter" data-level="4.2" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#tentative-proposal"><i class="fa fa-check"></i><b>4.2</b> (Tentative) Proposal</a></li>
+<li class="chapter" data-level="4.2" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#model-instantiation"><i class="fa fa-check"></i><b>4.2</b> Model Instantiation</a></li>
+<li class="chapter" data-level="4.3" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#model-fitting"><i class="fa fa-check"></i><b>4.3</b> Model fitting</a></li>
+<li class="chapter" data-level="4.4" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#prediction"><i class="fa fa-check"></i><b>4.4</b> Prediction</a></li>
+<li class="chapter" data-level="4.5" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#ensembling"><i class="fa fa-check"></i><b>4.5</b> Ensembling</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>5</b> Extension to unsupervised learning</a><ul>
 <li class="chapter" data-level="5.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#pipelines"><i class="fa fa-check"></i><b>5.1</b> Pipelines</a></li>
 <li class="chapter" data-level="5.2" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#non-repeatable-mappings"><i class="fa fa-check"></i><b>5.2</b> Non-repeatable mappings</a></li>
 <li class="chapter" data-level="5.3" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>5.3</b> Invertible Mappings</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="utilities-and-other-important-functionality.html"><a href="utilities-and-other-important-functionality.html"><i class="fa fa-check"></i><b>6</b> Utilities and other important functionality</a></li>
-<li class="chapter" data-level="7" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html"><i class="fa fa-check"></i><b>7</b> How to make this happen</a><ul>
-<li class="chapter" data-level="7.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#roadblocksneeds-before-standardizing-a-modelling-interface-to-community-standardhow-to-implement-new-models"><i class="fa fa-check"></i><b>7.1</b> Roadblocks/needs before standardizing a modelling interface to community standardHow to implement new models</a></li>
-<li class="chapter" data-level="7.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#infrastructure-to-provide"><i class="fa fa-check"></i><b>7.2</b> Infrastructure to provide</a></li>
-<li class="chapter" data-level="7.3" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#misc"><i class="fa fa-check"></i><b>7.3</b> Misc</a></li>
+<li class="chapter" data-level="6" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html"><i class="fa fa-check"></i><b>6</b> How to make this happen</a><ul>
+<li class="chapter" data-level="6.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#community-standards"><i class="fa fa-check"></i><b>6.1</b> Community standards</a></li>
+<li class="chapter" data-level="6.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#infrastructure-to-provide"><i class="fa fa-check"></i><b>6.2</b> Infrastructure to provide</a></li>
+<li class="chapter" data-level="6.3" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#misc"><i class="fa fa-check"></i><b>6.3</b> Misc</a></li>
 </ul></li>
 </ul>
 
@@ -140,10 +142,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="how-to-make-this-happen" class="section level1">
-<h1><span class="header-section-number">Part 7</span> How to make this happen</h1>
-<p>If the R community did accept these as communal standards for modelling, what steps would we need to take.</p>
-<div id="roadblocksneeds-before-standardizing-a-modelling-interface-to-community-standardhow-to-implement-new-models" class="section level2">
-<h2><span class="header-section-number">7.1</span> Roadblocks/needs before standardizing a modelling interface to community standardHow to implement new models</h2>
+<h1><span class="header-section-number">Part 6</span> How to make this happen</h1>
+<p>If the R community did accept these as communal standards for modelling, what steps would we need to take?</p>
+<div id="community-standards" class="section level2">
+<h2><span class="header-section-number">6.1</span> Community standards</h2>
 <p>I think it’s particular important to establish community standards for how to implement a <code>recipes</code> interface when you come up with a new model. How do you deal with intercepts for example? I’m hoping to make a PR to the <code>recipes</code> package with a <code>detect_step</code> function to simplify this, but I’m not sure if there are any recommendations on how or why to use this type of functionality.</p>
 <p>Related: a detailed tutorial for package developers describing how to conveniently deal with all three of the following data formats:</p>
 <ul>
@@ -166,7 +168,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>I strongly believe the <code>recipes</code> package should handle all of the above. That way code can be more modular and consistent.</p>
 </div>
 <div id="infrastructure-to-provide" class="section level2">
-<h2><span class="header-section-number">7.2</span> Infrastructure to provide</h2>
+<h2><span class="header-section-number">6.2</span> Infrastructure to provide</h2>
 <ul>
 <li>Skeleton package defining general inference and explaining where to fill in the details for a particular modelling method</li>
 <li>Providing a system to check for interface compliance</li>
@@ -174,9 +176,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </div>
 <div id="misc" class="section level2">
-<h2><span class="header-section-number">7.3</span> Misc</h2>
+<h2><span class="header-section-number">6.3</span> Misc</h2>
 <p>How to incentivize busy profs to rewrite packages they no longer have time to think about?</p>
-<p>How far can GSOC and PR go?</p>
+<p>How far can GSOC and PRs go?</p>
 
 </div>
 </div>
@@ -185,7 +187,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="utilities-and-other-important-functionality.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="extension-to-unsupervised-learning.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

@@ -37,7 +37,7 @@ from sklearn import linear_model
 reg = linear_model.RidgeCV(alphas=[0.1, 1.0, 10.0])
 reg.fit([[0, 0], [0, 0], [1, 1]], [0, .1, 1])       
 RidgeCV(alphas=[0.1, 1.0, 10.0], cv=None, fit_intercept=True, scoring=None,
-    normalize=False)
+        normalize=False)
 ```
 
 Here we fit a `RidgeCV` object which efficiently performs cross-validation on the regularization parameter. However, now we have to remember to call `RidgeCV` rather than the standard grid search wrapper.
@@ -63,13 +63,14 @@ In my mind, the `caret` library most closely matches my intuition about working 
 ```{r}
 library(caret)
 
-# specify 10-fold CV repeated 10 times are hyperparameter selection strategy
+# specify 10-fold CV repeated 10 times as resampling strategy
 fitControl <- trainControl(method = "repeatedcv",
                            number = 10,
                            repeats = 10)
 
-knn_model <- train(y ~ .,
-                   data = train_df, 
+# uses grid search on k = [5, 7, 9]
+knn_model <- train(Species ~ .,
+                   data = iris, 
                    method = "knn", 
                    trControl = fitControl)
 ```
@@ -80,12 +81,11 @@ Some things I like about the `caret` interface:
 - Reasonable defaults are provided for some hyperparameters, so it occasionally does feel like you're working with a `model family` that has abstracted away hyperparameter selection
 - `caret` takes advantage of built in, smart hyperparameter selection like `cv.glmnet` instead of manually checking values of $\lambda$
 
-Some things I don't like about the `caret` interface:
+Some reasons why `caret` isn't a complete solution in my mind:
 
 - The default hyperparameter search is not an extensive enough to ignore hyperparameter selection in the majority of cases and so you end up specifying a tuning grid most of the time. Ideally I think all models should function with default hyperparameter selection as in `h2o.automl()`
-- The result of `train` is an object of class `train`. That is, you know it's a model family object, but the precise modelling technique is stored as a string. This means you have to write wrapper code if you want to add a model to the `caret` interface (i.e. it's a nice package to work with, but it probably isn't a great API to set as a communal standard for scientist producing packages)
-- Ensembling is hard. There's the `caretEnsemble` extension but I find the interface a messy.
-- I find the names of several functions and function arguments unintuitive.
+- It's a nice package to work with, but it probably isn't an API to set as a communal standard for scientists producing packages.
+- Ensembling is hard. There's the `caretEnsemble` extension but I find the interface somewhat hard to use. In particular, it seems like there's a lot of work on using influence functions/TMLE to do targeted inference with ML at the moment, and many of the packages coming out make use of the `SuperLearner` package, when I think a `SuperLearner` should just be one of several (consistently designed) `ensemble` objects.
 
 It's also worth noting that `caret` doesn't require object instantiation like `Scikit-Learn` does.
 

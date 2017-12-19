@@ -1,8 +1,8 @@
 # How to make this happen
 
-If the R community did accept these as communal standards for modelling, what steps would we need to take.
+If the R community did accept these as communal standards for modelling, what steps would we need to take?
 
-## Roadblocks/needs before standardizing a modelling interface to community standardHow to implement new models
+## Community standards
 
 I think it's particular important to establish community standards for how to implement a `recipes` interface when you come up with a new model. How do you deal with intercepts for example? I'm hoping to make a PR to the `recipes` package with a `detect_step` function to simplify this, but I'm not sure if there are any recommendations on how or why to use this type of functionality.
 
@@ -36,4 +36,4 @@ I strongly believe the `recipes` package should handle all of the above. That wa
 
 How to incentivize busy profs to rewrite packages they no longer have time to think about?
 
-How far can GSOC and PR go?
+How far can GSOC and PRs go?

@@ -18,6 +18,6 @@ As a concrete example, consider the `glmnet` package.
 
 There are some important differences between `model family` objects and `model` objects. If we have some data, we know how to fit a `model`. With a `model family` that's less obvious - we have to specify some hyperparameter selection method because it isn't feasible to the train `model`s for all possible valuables of the hyperparameters. Additionally, we typically perform inference on `model`s rather than `model family`s.
 
-In practice what we'd like to do is specify a set of hyperparameters and train `model` objects for sets of hyperparameter combinations. Together this set of models will form the `model family`. Each of the `model`s contained in the `model family` will have difference predictive performance, so an important part of the model family is a specification of a performance metric (i.e. RMSE) and a performance assess strategy (i.e. cross-validation).
+In practice what we'd like to do is specify a hyperparameter space train `model` objects for certain hyperparameter combinations. The resultant set of models forms a sort of empirical `model family`.
 
 Keeping `model`s and `model family`s in mind, let's think about how existing machine learning libraries work.

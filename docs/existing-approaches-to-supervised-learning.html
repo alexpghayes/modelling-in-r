@@ -25,7 +25,7 @@
 <meta name="author" content="Alex Hayes">
 
 
-<meta name="date" content="2017-12-15">
+<meta name="date" content="2017-12-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -109,18 +109,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html"><i class="fa fa-check"></i><b>4</b> Proposed interface for supervised learning</a><ul>
 <li class="chapter" data-level="4.1" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#what-we-want-out-of-a-modelling-interface"><i class="fa fa-check"></i><b>4.1</b> What we want out of a modelling interface</a></li>
-<li class="chapter" data-level="4.2" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#tentative-proposal"><i class="fa fa-check"></i><b>4.2</b> (Tentative) Proposal</a></li>
+<li class="chapter" data-level="4.2" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#model-instantiation"><i class="fa fa-check"></i><b>4.2</b> Model Instantiation</a></li>
+<li class="chapter" data-level="4.3" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#model-fitting"><i class="fa fa-check"></i><b>4.3</b> Model fitting</a></li>
+<li class="chapter" data-level="4.4" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#prediction"><i class="fa fa-check"></i><b>4.4</b> Prediction</a></li>
+<li class="chapter" data-level="4.5" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#ensembling"><i class="fa fa-check"></i><b>4.5</b> Ensembling</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>5</b> Extension to unsupervised learning</a><ul>
 <li class="chapter" data-level="5.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#pipelines"><i class="fa fa-check"></i><b>5.1</b> Pipelines</a></li>
 <li class="chapter" data-level="5.2" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#non-repeatable-mappings"><i class="fa fa-check"></i><b>5.2</b> Non-repeatable mappings</a></li>
 <li class="chapter" data-level="5.3" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>5.3</b> Invertible Mappings</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="utilities-and-other-important-functionality.html"><a href="utilities-and-other-important-functionality.html"><i class="fa fa-check"></i><b>6</b> Utilities and other important functionality</a></li>
-<li class="chapter" data-level="7" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html"><i class="fa fa-check"></i><b>7</b> How to make this happen</a><ul>
-<li class="chapter" data-level="7.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#roadblocksneeds-before-standardizing-a-modelling-interface-to-community-standardhow-to-implement-new-models"><i class="fa fa-check"></i><b>7.1</b> Roadblocks/needs before standardizing a modelling interface to community standardHow to implement new models</a></li>
-<li class="chapter" data-level="7.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#infrastructure-to-provide"><i class="fa fa-check"></i><b>7.2</b> Infrastructure to provide</a></li>
-<li class="chapter" data-level="7.3" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#misc"><i class="fa fa-check"></i><b>7.3</b> Misc</a></li>
+<li class="chapter" data-level="6" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html"><i class="fa fa-check"></i><b>6</b> How to make this happen</a><ul>
+<li class="chapter" data-level="6.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#community-standards"><i class="fa fa-check"></i><b>6.1</b> Community standards</a></li>
+<li class="chapter" data-level="6.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#infrastructure-to-provide"><i class="fa fa-check"></i><b>6.2</b> Infrastructure to provide</a></li>
+<li class="chapter" data-level="6.3" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#misc"><i class="fa fa-check"></i><b>6.3</b> Misc</a></li>
 </ul></li>
 </ul>
 
@@ -168,7 +170,7 @@ knn.fit(X, y)</code></pre></div>
 reg <span class="op">=</span> linear_model.RidgeCV(alphas<span class="op">=</span>[<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">10.0</span>])
 reg.fit([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">1</span>]], [<span class="dv">0</span>, .<span class="dv">1</span>, <span class="dv">1</span>])       
 RidgeCV(alphas<span class="op">=</span>[<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">10.0</span>], cv<span class="op">=</span><span class="va">None</span>, fit_intercept<span class="op">=</span><span class="va">True</span>, scoring<span class="op">=</span><span class="va">None</span>,
-    normalize<span class="op">=</span><span class="va">False</span>)</code></pre></div>
+        normalize<span class="op">=</span><span class="va">False</span>)</code></pre></div>
 <p>Here we fit a <code>RidgeCV</code> object which efficiently performs cross-validation on the regularization parameter. However, now we have to remember to call <code>RidgeCV</code> rather than the standard grid search wrapper.</p>
 <p>It would be cleaner to specify that we want to work with the KNN/RIDGE model family and then plug in whichever hyperparameter selection technique we choose via the same interface.</p>
 <p>There are some things that <code>Scikit-Learn</code> does really well though:</p>
@@ -184,13 +186,14 @@ RidgeCV(alphas<span class="op">=</span>[<span class="fl">0.1</span>, <span class
 <p>In my mind, the <code>caret</code> library most closely matches my intuition about working with <code>model family</code>s rather than <code>model</code>s.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
 
-<span class="co"># specify 10-fold CV repeated 10 times are hyperparameter selection strategy</span>
+<span class="co"># specify 10-fold CV repeated 10 times as resampling strategy</span>
 fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method =</span> <span class="st">&quot;repeatedcv&quot;</span>,
                            <span class="dt">number =</span> <span class="dv">10</span>,
                            <span class="dt">repeats =</span> <span class="dv">10</span>)
 
-knn_model &lt;-<span class="st"> </span><span class="kw">train</span>(y <span class="op">~</span><span class="st"> </span>.,
-                   <span class="dt">data =</span> train_df, 
+<span class="co"># uses grid search on k = [5, 7, 9]</span>
+knn_model &lt;-<span class="st"> </span><span class="kw">train</span>(Species <span class="op">~</span><span class="st"> </span>.,
+                   <span class="dt">data =</span> iris, 
                    <span class="dt">method =</span> <span class="st">&quot;knn&quot;</span>, 
                    <span class="dt">trControl =</span> fitControl)</code></pre></div>
 <p>Some things I like about the <code>caret</code> interface:</p>
@@ -199,12 +202,11 @@ knn_model &lt;-<span class="st"> </span><span class="kw">train</span>(y <span cl
 <li>Reasonable defaults are provided for some hyperparameters, so it occasionally does feel like you’re working with a <code>model family</code> that has abstracted away hyperparameter selection</li>
 <li><code>caret</code> takes advantage of built in, smart hyperparameter selection like <code>cv.glmnet</code> instead of manually checking values of <span class="math inline">\(\lambda\)</span></li>
 </ul>
-<p>Some things I don’t like about the <code>caret</code> interface:</p>
+<p>Some reasons why <code>caret</code> isn’t a complete solution in my mind:</p>
 <ul>
 <li>The default hyperparameter search is not an extensive enough to ignore hyperparameter selection in the majority of cases and so you end up specifying a tuning grid most of the time. Ideally I think all models should function with default hyperparameter selection as in <code>h2o.automl()</code></li>
-<li>The result of <code>train</code> is an object of class <code>train</code>. That is, you know it’s a model family object, but the precise modelling technique is stored as a string. This means you have to write wrapper code if you want to add a model to the <code>caret</code> interface (i.e. it’s a nice package to work with, but it probably isn’t a great API to set as a communal standard for scientist producing packages)</li>
-<li>Ensembling is hard. There’s the <code>caretEnsemble</code> extension but I find the interface a messy.</li>
-<li>I find the names of several functions and function arguments unintuitive.</li>
+<li>It’s a nice package to work with, but it probably isn’t an API to set as a communal standard for scientists producing packages.</li>
+<li>Ensembling is hard. There’s the <code>caretEnsemble</code> extension but I find the interface somewhat hard to use. In particular, it seems like there’s a lot of work on using influence functions/TMLE to do targeted inference with ML at the moment, and many of the packages coming out make use of the <code>SuperLearner</code> package, when I think a <code>SuperLearner</code> should just be one of several (consistently designed) <code>ensemble</code> objects.</li>
 </ul>
 <p>It’s also worth noting that <code>caret</code> doesn’t require object instantiation like <code>Scikit-Learn</code> does.</p>
 </div>
