@@ -1,0 +1,44 @@
+# Interface desirables
+
+**Uses as much language from `Scikit-Learn` as possible**
+
+Since `Scikit-Learn` is likely the most uniform and widely known interface for predictive modelling, this reduces cognitive load. Additionally, the Python ML world has a strong tradition of implementing new models with the `Scikit-Learn` interface that we hope will carry over to new researchers implementing new methods in R.
+
+**Researchers can easily implement new models that conform to the interface**
+
+This is because we often want to use multiple models at the same time, and it's a nightmare when these models don't share the same API.
+
+**Each model and model family corresponds to a single distinct class**
+
+This makes it easy to provide an interface compliant template that researchers can will fill in with new models they implement. It also allows them to write custom S3 methods, which they likely expect, and to provide smart cross-validation schemes when appropriate.
+
+**Ensembling is easy**
+
+Most users interested in prediction will create an ensemble at some point. To appeal to the Kaggle crowd as much as possible, it should be easy to bag, boost and stack models to arbitrary depths.
+
+Additionally, a number of R packages use the [`SuperLearner`](https://github.com/ecpolley/SuperLearner) package as the basis for [Super Learner](http://biostats.bepress.com/ucbbiostat/paper222/) and [semi-parametric inference](https://arxiv.org/pdf/1510.04740.pdf). If new machine learning techniques  implement a standardized interface, then packages like `SuperLearner` (and also `caret` and `mlr` for that matter) don't need to implement wrappers for each new model.
+
+**Facilitates automated machine learning**
+
+Recently industrial data science has been tending toward automating as many redundant parts of the modelling process as possible. Take for example:
+
+- [H2O's Automated Machine Learning](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html), which has already landed in R with `h2o.automl()`
+- [H2O's Driverless AI](https://www.h2o.ai/driverless-ai/)
+- [Airbnb's modelling workflow](https://medium.com/airbnb-engineering/automated-machine-learning-a-paradigm-shift-that-accelerates-data-scientist-productivity-airbnb-f1f8a10d61f8)
+- [TPOT](https://github.com/rhiever/tpot)
+- [mlrMBO](https://mlr-org.github.io/mlrMBO/)
+- [Spearmint](https://github.com/HIPS/Spearmint)
+
+In terms of implementation, this means it should be easy to programmatically generate and manipulate `model` and `model family`s. This also means that hyperparameter space specifications should be flexible and informative enough to handle new hyperparameter search algorithms, and that it should be easy to specify smart defaults.
+
+I think it would also be nice to "metalearn" good hyperparameters to try initially, as in [auto-sklearn](https://papers.nips.cc/paper/5872-efficient-and-robust-automated-machine-learning.pdf).
+
+**Tidy and pipeable data structures**
+
+The interface should conform to [tidyverse](https://www.tidyverse.org/) principles, given the consistent standards and wide user adoption of the tidyverse.
+
+**Users think in terms of `model family`s**
+
+Since it's most intuitive to think about model families, we want the interface to reflect this. For operations that require an actual `model`, such as prediction, users should be able to pass in `model family` objects, and then have the software automatically extract and use the best `model` in the `model family`. The interface should provide a clear idea of what it means to `fit` a model family, so that interested users can customize hyperparameter spaces and selection techniques. 
+
+Keeping these desirables in mind, let's think about how existing machine learning libraries work.

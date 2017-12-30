@@ -1,0 +1,20 @@
+# Extension to unsupervised learning
+
+This interface could also be extended to unsupervised learning following the spirit of `Scikit-Learn` by replacing the `predict` method with `transform` in the unsupervised case.
+
+Model families make sense in the unsupervised domain. For example, k-means and convex clustering both involve some sort of hyperparameter selection.
+
+- For convex clustering you want to select a penalization parameter, probably optimizing one of several proposed clustering statistics
+- For k-means you want to take the mode of cluster assignments, so `transform(k_means)` is probably a bad idea, but `transform(k_means_family)` would be interesting.
+
+## Invertible Mappings
+
+I want a standard S3 method for invertible mappings in the spirit of `scale`/`unscale`. In some sense recipes does this, but only for the forward transformation. `scale`/`unscale` store information about the transformation in the returned object, which I'm not sold on. I'd prefer the following:
+
+```{r}
+pca_model <- pca(X)                 # pca(X) wraps fit(new_pca(), X)
+Z <- transform(pca_model, X)              # transform performs forward mapping
+X_recovered <- untransform(pca_model, Z)  # untransform performs inverse mapping
+```
+
+and then you could provide the standard wrappers like `fit_transform`, `fit_untransform`, etc.

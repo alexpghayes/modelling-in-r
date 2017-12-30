@@ -47,4 +47,4 @@ This has some problems:
 
 That is, there isn't a consistent interface to the packages themselves. Additionally, the packages don't make use of a conceptual framework that makes it easy to think about modelling.
 
-The goal is the document is provide a grammar of modelling that resolves both of these problems.
+The goal of the document is provide a grammar of modelling that resolves both of these problems.

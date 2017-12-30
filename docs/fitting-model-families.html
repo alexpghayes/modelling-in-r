@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="proposed-interface.html">
-
+<link rel="prev" href="models-and-model-families.html">
+<link rel="next" href="interface-desirables.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -140,31 +140,33 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="extension-to-unsupervised-learning" class="section level1">
-<h1><span class="header-section-number">Part 7</span> Extension to unsupervised learning</h1>
-<p>This interface could also be extended to unsupervised learning following the spirit of <code>Scikit-Learn</code> by replacing the <code>predict</code> method with <code>transform</code> in the unsupervised case.</p>
-<p>Model families make sense in the unsupervised domain. For example, k-means and convex clustering both involve some sort of hyperparameter selection.</p>
+<div id="fitting-model-families" class="section level1">
+<h1><span class="header-section-number">Part 3</span> Fitting model families</h1>
+<p>Fitting a <code>model</code> is quite different from fitting a <code>model family</code>. To fit a model, we need:</p>
 <ul>
-<li>For convex clustering you want to select a penalization parameter, probably optimizing one of several proposed clustering statistics</li>
-<li>For k-means you want to take the mode of cluster assignments, so <code>transform(k_means)</code> is probably a bad idea, but <code>transform(k_means_family)</code> would be interesting.</li>
+<li>Data</li>
+<li>Specific hyperparameter values</li>
+<li>A way to train the model given data and specific hyperparameters</li>
 </ul>
-<div id="invertible-mappings" class="section level2">
-<h2><span class="header-section-number">7.1</span> Invertible Mappings</h2>
-<p>I want a standard S3 method for invertible mappings in the spirit of <code>scale</code>/<code>unscale</code>. In some sense recipes does this, but only for the forward transformation. <code>scale</code>/<code>unscale</code> store information about the transformation in the returned object, which I’m not sold on. I’d prefer the following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_model &lt;-<span class="st"> </span><span class="kw">pca</span>(X)                 <span class="co"># pca(X) wraps fit(new_pca(), X)</span>
-Z &lt;-<span class="st"> </span><span class="kw">transform</span>(pca_model, X)              <span class="co"># transform performs forward mapping</span>
-X_recovered &lt;-<span class="st"> </span><span class="kw">untransform</span>(pca_model, Z)  <span class="co"># untransform performs inverse mapping</span></code></pre></div>
-<p>and then you could provide the standard wrappers like <code>fit_transform</code>, <code>fit_untransform</code>, etc.</p>
+<p>On the other hand, to fit a model family, we need:</p>
+<ul>
+<li>Data</li>
+<li>The hyperparameter space to consider</li>
+<li>A way to train the model given data and specific hyperparameters</li>
+<li>A way to search through hyperparameter space</li>
+<li>A way to determine which trained model is best</li>
+</ul>
+<p>To find the best model in the model family, we need a performance metric, such as root mean squared error, and an estimate of this metric on out-of-sample model data. This likely means getting multiple estimates of model performance by fitting the same model on resampled datasets.</p>
+<p>Keeping models and model families in mind, let’s think about some features that would make a modelling interface intuitive and useful to users.</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="proposed-interface.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="models-and-model-families.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interface-desirables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -193,7 +195,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/06-unsupervised-learning.Rmd",
+"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/02-fitting-model-families.Rmd",
 "text": "Edit"
 },
 "download": null,

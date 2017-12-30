@@ -1,0 +1,19 @@
+# Fitting model families
+
+Fitting a `model` is quite different from fitting a `model family`. To fit a model, we need:
+
+- Data
+- Specific hyperparameter values
+- A way to train the model given data and specific hyperparameters
+
+On the other hand, to fit a model family, we need:
+
+- Data
+- The hyperparameter space to consider
+- A way to train the model given data and specific hyperparameters
+- A way to search through hyperparameter space
+- A way to determine which trained model is best
+
+To find the best model in the model family, we need a performance metric, such as root mean squared error, and an estimate of this metric on out-of-sample model data. This likely means getting multiple estimates of model performance by fitting the same model on resampled datasets.
+
+Keeping models and model families in mind, let's think about some features that would make a modelling interface intuitive and useful to users. 

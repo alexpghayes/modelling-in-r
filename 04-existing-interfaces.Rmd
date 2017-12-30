@@ -1,0 +1,200 @@
+# Existing interfaces
+
+## Scikit-Learn
+
+Scikit-Learn knocks it out of the park in a couple areas:
+
+- The API is consistent and easy to understand
+- It's easy to comply with the interface when designing new models or drop in replacements
+- There are many extensions to facilitate ensembling and automatic hyperparameter selection
+
+Working with models is quite intuitive as well. For example, to `fit` a KNN model for classification with five neighbors, we could do the following:
+
+```{python}
+from sklearn import neighbors
+knn = neighbors.KNeighborsClassifier(n_neighbors=5)
+knn.fit(X, y)
+knn.predict(X_test)
+```
+
+However, Scikit-Learn doesn't provide convenient abstractions for dealing with model families.
+
+Consider KNN where we would like to use random search to select a value of `k`, which looks something like:
+
+```{python}
+hyperparameter_space = {
+    'n_neighbors': sp_randint(1, 31)  # pick k in [1, 2, ..., 30]
+}
+
+knn = RandomizedSearchCV(KNeighborsClassifier(),
+                         param_distributions=hyperparameter_space)
+
+knn.fit(X, y)
+```
+
+Here we have to create a random search object and wrap it around the KNN classifier. This hyperparameter search object now acts the original model. I find this somewhat confusing.
+
+Unfortunately, we have to manually specify the hyperparameter space, even though there are sane defaults. Additionally, different hyperparameter search objects accept different forms of hyperparameter specifications. For example, if we wanted to use a grid search, we'd need to pass in a list for `n_neighbors`, and if we wanted to use Tree Parzen Estimators from the `hyperopt` library, we'd have to use hyperopt's custom hyperparameter space specifications.
+
+Another concern is that this doesn't allow us to take advantage of structure in the hyperparameter space. For example, with KNN, assuming we aren't doing any fancy approximation methods, we really want to calculate pairwise distances exactly once, and then reuse that pairwise distance information to select `k`. Instead we recalculate pairwise distances for each `k`, which is inefficient. Similarly, for penalized regressions, we don't want to fit models for each value of the penalty parameter, we want to fit the entire solution path all at once.
+
+Scikit-Learn provides some work arounds to this. For example, with ridge regression, we can fit a `RidgeCV` object which efficiently performs cross-validation on the regularization parameter:
+
+```{python}
+from sklearn import linear_model
+reg = linear_model.RidgeCV(alphas=[0.1, 1.0, 10.0])
+reg.fit([[0, 0], [0, 0], [1, 1]], [0, .1, 1])       
+RidgeCV(alphas=[0.1, 1.0, 10.0], cv=None, fit_intercept=True, scoring=None,
+        normalize=False)
+```
+
+However, now we have to remember to call `RidgeCV`, resulting in a cluttered space of models that we need to keep track of.
+
+In any case, the result is that the code we write is tightly tied to our hyperparameter search method. This is somewhat brittle and I think will prove frustrating as the literature on hyperparameter search continues to grow. Additionally, beginners are most likely to use easy to understand yet inefficient methods such as grid search, since that code is the easiest to understand and provided in the examples.
+
+#### Aside: automatic ML extensions
+
+Many of the Scikit-Learn extensions offer drop in classifiers or regressors. While these abstract the hyperparameter and model selection problems away from users, these systems tend to be designed for more hands off production use and are overly abstract at times.
+
+Consider the popular pipeline optimization package TPOT, which has the following interface
+
+```{python}
+from tpot import TPOTClassifier
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+
+digits = load_digits()
+X_train, X_test, y_train, y_test = train_test_split(digits.data, digits.target,
+                                                    train_size=0.75, test_size=0.25)
+
+pipeline_optimizer = TPOTClassifier(generations=5, population_size=20, cv=5,
+                                    random_state=42, verbosity=2)
+pipeline_optimizer.fit(X_train, y_train)
+```
+
+In this case the user is working with an entire prediction pipeline, as opposed to a single model family.
+
+#### Another aside: model instantiation
+
+In `Scikit-Learn` you have to instantiate a `KNeighborsClassifier` object and afterward call `fit` on it. This differs from R where a dominant paradigm is to instantiate a model and train it with a single call, like so:
+
+```{r}
+knn_model <- knn_classifer(y ~ ., data, k = 5)
+```
+
+
+## caret
+
+In my mind, the `caret` library most closely matches my intuition about working with `model family`s rather than `model`s.
+
+```{r}
+library(caret)
+
+fitControl <- trainControl(method = "repeatedcv",
+                           number = 10,
+                           repeats = 10)
+
+knn_model <- train(Species ~ .,
+                   data = iris, 
+                   method = "knn", 
+                   trControl = fitControl)
+```
+
+I like that the hyperparameter selection strategy is an argument (`trControl`) to the fit method, and I particularly like that each model comes with a default hyperparameter space specification. In the example above, `caret` automatically uses grid search on $\k \in \{5, 7, 9}$. Caret also takes advantage of built in, smart hyperparameter selection like `cv.glmnet` instead of manually checking values of $\lambda$.
+
+While caret partial abstracts away the hyperparameter selection problem, the default hyperparameter search is often not extensive enough to ignore hyperparameter selection. Users can pass in a data frame to specify a hyperparameter grid. However, caret only provides a limited number of built in hyperparameter search algorithms (grid search, grid search with racing and random search), so users have to write wrappers around to train to take advantage of bayesian optimization, for example.
+
+I think that well defined hyperparameter spaces, hyperparameter optimization functions, and arguments to specify both would go a long way toward improving ease of use. I would also like to see the specification of hyperparameter search algorithm separated from the resampling specification. Users can also use `train` to fit models rather than model families, by passing in a hyperparameter grid containing only a single point. I am not a fan of this, as I believe it blurs the distinct between models and model families.
+
+Caret is not tidy, and an occasion argument/function names can be difficult to grok at first. Lastly, caret does not have built in ensembling. There's the `caretEnsemble` extension but I find the interface somewhat hard to use. 
+
+The takeaway is that caret is a fantastic package that makes life a lot easier, but that it contains some design details that mean it probably isn't an API to set as a communal standard for scientists producing packages.
+
+Aside: caret doesn't require object instantiation like Scikit-Learn does.
+
+## mlr
+
+I'm including `mlr` here because it does contains lots of useful functionality, but I haven't spent much time the package and don't have a particularly principled critique. I find the interface rather unappealing, but can't put my finger on exactly why.
+
+To use linear discriminant analysis on the iris dataset, you would:
+
+```{r}
+library(mlr)
+
+task = makeClassifTask(data = iris, target = "Species")
+lrn = makeLearner("classif.lda")
+
+n = nrow(iris)
+train.set = sample(n, size = 2/3*n)
+test.set = setdiff(1:n, train.set)
+
+model = train(lrn, task, subset = train.set)
+
+pred = predict(model, task = task, subset = test.set)
+performance(pred, measures = list(mmce, acc))
+```
+
+In particular, I don't like that I have to specify a task and I don't like specifying the outcome variable via string.
+
+Through the `mlrMBO` extension we can use bayesian optimization techniques to define and search hyperparameter spaces, like so:
+
+```{r}
+library(mlrMBO)
+
+par.set = makeParamSet(
+  makeDiscreteParam("kernel", values = c("radial", "polynomial", "linear")),
+  makeNumericParam("cost", -15, 15, trafo = function(x) 2^x),
+  makeNumericParam("gamma", -15, 15, trafo = function(x) 2^x, requires = quote(kernel == "radial")),
+  makeIntegerParam("degree", lower = 1, upper = 4, requires = quote(kernel == "polynomial"))
+)
+
+ctrl = makeMBOControl()
+ctrl = setMBOControlTermination(ctrl, iters = 5)
+tune.ctrl = makeTuneControlMBO(mbo.control = ctrl)
+res = tuneParams(makeLearner("classif.svm"), iris.task, cv3, par.set = par.set, control = tune.ctrl,
+  show.info = FALSE)
+```
+
+This is definitely functionality that I want, but there are a lot of different objects happening at the same time in the workspace, and I don't understand why this is necessary. I also think some of the boilerplate should disappear and models should be provided with default hyperparameter spaces. 
+
+I suppose that my big complaint is that I would rather work with model and model families objects rather than a set of controller objects.
+
+## Idiomatic modelling in R
+
+Let's consider an imaginary package using an idiomatic R interface that performs lasso regression. A nicely written package might have an interface like so
+
+```{r}
+library(lasso)
+
+lasso_object <- lasso(X, y, lambda = 0.01)
+predict(lasso_object, X_new)
+```
+
+Since there are efficient ways to cross-validate $\lambda$ for lasso regression, the package would likely also implement an interface like
+
+```{r}
+lasso_cv_object <- lasso_cv(X, y)
+predict(lasso_cv_object)
+```
+
+that would automatically select an optimal value of $\lambda$. A nice package author would make `lasso` and `lasso_cv` generics and would also implement formula or even [recipe](https://github.com/topepo/recipes) interfaces to the model, like so
+
+```{r}
+lasso_object <- lasso(y ~ ., data = df, lambda = 0.01)
+lasso_cv_object <- lasso_cv(y ~ ., data = df)
+```
+
+I think this is a clean interface and a good standard to keep until something better comes along. In the long term, I would like the community standard for modelling to change, because:
+
+- When there isn't a smart way to select to perform cross-validation, you have to write hyperparameter search code yourself, and small variations in interface design mean you have to do this for each different model you work with. That is, most of the time people work with multiple models, so it is incredibly convenient to be able to do something like:
+
+```{r}
+model_familys <- list(lasso(), ridge(), OLS())
+train_models <- map(models, ~fit(model_familys, y ~ ., data))
+```
+
+but this isn't possible because each function has it's own version of `fit`.
+
+- Unless there's a `recipe` interface to the `lasso_cv` function there isn't a way to do principled preprocessing when resampling to estimate prediction error
+
+- Feature creep inevitably means that individual packages add resampling, hyperparameter search and preprocessing functionality to the `lasso` and `lasso_cv` functions, making it difficult to extend them or write modular code

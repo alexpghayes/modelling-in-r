@@ -25,7 +25,7 @@
 <meta name="author" content="Alex Hayes">
 
 
-<meta name="date" content="2017-12-19">
+<meta name="date" content="2017-12-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 
-<link rel="next" href="objects-in-a-grammar-of-supervised-learning.html">
+<link rel="next" href="models-and-model-families.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -100,29 +100,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Motivation</a></li>
-<li class="chapter" data-level="2" data-path="objects-in-a-grammar-of-supervised-learning.html"><a href="objects-in-a-grammar-of-supervised-learning.html"><i class="fa fa-check"></i><b>2</b> Objects in a grammar of supervised learning</a></li>
-<li class="chapter" data-level="3" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html"><i class="fa fa-check"></i><b>3</b> Existing approaches to supervised learning</a><ul>
-<li class="chapter" data-level="3.1" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#scikit-learn"><i class="fa fa-check"></i><b>3.1</b> <code>Scikit-Learn</code></a></li>
-<li class="chapter" data-level="3.2" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#caret"><i class="fa fa-check"></i><b>3.2</b> <code>caret</code></a></li>
-<li class="chapter" data-level="3.3" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#mlr"><i class="fa fa-check"></i><b>3.3</b> <code>mlr</code></a></li>
-<li class="chapter" data-level="3.4" data-path="existing-approaches-to-supervised-learning.html"><a href="existing-approaches-to-supervised-learning.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>3.4</b> Idiomatic modelling in R</a></li>
+<li class="chapter" data-level="2" data-path="models-and-model-families.html"><a href="models-and-model-families.html"><i class="fa fa-check"></i><b>2</b> Models and model families</a></li>
+<li class="chapter" data-level="3" data-path="fitting-model-families.html"><a href="fitting-model-families.html"><i class="fa fa-check"></i><b>3</b> Fitting model families</a></li>
+<li class="chapter" data-level="4" data-path="interface-desirables.html"><a href="interface-desirables.html"><i class="fa fa-check"></i><b>4</b> Interface desirables</a></li>
+<li class="chapter" data-level="5" data-path="existing-interfaces.html"><a href="existing-interfaces.html"><i class="fa fa-check"></i><b>5</b> Existing interfaces</a><ul>
+<li class="chapter" data-level="5.1" data-path="existing-interfaces.html"><a href="existing-interfaces.html#scikit-learn"><i class="fa fa-check"></i><b>5.1</b> Scikit-Learn</a></li>
+<li class="chapter" data-level="5.2" data-path="existing-interfaces.html"><a href="existing-interfaces.html#caret"><i class="fa fa-check"></i><b>5.2</b> caret</a></li>
+<li class="chapter" data-level="5.3" data-path="existing-interfaces.html"><a href="existing-interfaces.html#mlr"><i class="fa fa-check"></i><b>5.3</b> mlr</a></li>
+<li class="chapter" data-level="5.4" data-path="existing-interfaces.html"><a href="existing-interfaces.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>5.4</b> Idiomatic modelling in R</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html"><i class="fa fa-check"></i><b>4</b> Proposed interface for supervised learning</a><ul>
-<li class="chapter" data-level="4.1" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#what-we-want-out-of-a-modelling-interface"><i class="fa fa-check"></i><b>4.1</b> What we want out of a modelling interface</a></li>
-<li class="chapter" data-level="4.2" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#model-instantiation"><i class="fa fa-check"></i><b>4.2</b> Model Instantiation</a></li>
-<li class="chapter" data-level="4.3" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#model-fitting"><i class="fa fa-check"></i><b>4.3</b> Model fitting</a></li>
-<li class="chapter" data-level="4.4" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#prediction"><i class="fa fa-check"></i><b>4.4</b> Prediction</a></li>
-<li class="chapter" data-level="4.5" data-path="proposed-interface-for-supervised-learning.html"><a href="proposed-interface-for-supervised-learning.html#ensembling"><i class="fa fa-check"></i><b>4.5</b> Ensembling</a></li>
+<li class="chapter" data-level="6" data-path="proposed-interface.html"><a href="proposed-interface.html"><i class="fa fa-check"></i><b>6</b> Proposed interface</a><ul>
+<li class="chapter" data-level="6.1" data-path="proposed-interface.html"><a href="proposed-interface.html#objects-in-play"><i class="fa fa-check"></i><b>6.1</b> Objects in play</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="proposed-interface.html"><a href="proposed-interface.html#model-calibration"><i class="fa fa-check"></i><b>6.1.1</b> Model calibration</a></li>
+<li class="chapter" data-level="6.1.2" data-path="proposed-interface.html"><a href="proposed-interface.html#hyperparameter-space-definition"><i class="fa fa-check"></i><b>6.1.2</b> Hyperparameter space definition</a></li>
+<li class="chapter" data-level="6.1.3" data-path="proposed-interface.html"><a href="proposed-interface.html#hyperparameter-search"><i class="fa fa-check"></i><b>6.1.3</b> Hyperparameter search</a></li>
+<li class="chapter" data-level="6.1.4" data-path="proposed-interface.html"><a href="proposed-interface.html#model-and-model-family-objects"><i class="fa fa-check"></i><b>6.1.4</b> Model and model family objects</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>5</b> Extension to unsupervised learning</a><ul>
-<li class="chapter" data-level="5.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#pipelines"><i class="fa fa-check"></i><b>5.1</b> Pipelines</a></li>
-<li class="chapter" data-level="5.2" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#non-repeatable-mappings"><i class="fa fa-check"></i><b>5.2</b> Non-repeatable mappings</a></li>
-<li class="chapter" data-level="5.3" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>5.3</b> Invertible Mappings</a></li>
+<li class="chapter" data-level="6.2" data-path="proposed-interface.html"><a href="proposed-interface.html#model-instantiation"><i class="fa fa-check"></i><b>6.2</b> Model Instantiation</a></li>
+<li class="chapter" data-level="6.3" data-path="proposed-interface.html"><a href="proposed-interface.html#model-fitting"><i class="fa fa-check"></i><b>6.3</b> Model fitting</a></li>
+<li class="chapter" data-level="6.4" data-path="proposed-interface.html"><a href="proposed-interface.html#prediction"><i class="fa fa-check"></i><b>6.4</b> Prediction</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html"><i class="fa fa-check"></i><b>6</b> How to make this happen</a><ul>
-<li class="chapter" data-level="6.1" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#community-standards"><i class="fa fa-check"></i><b>6.1</b> Community standards</a></li>
-<li class="chapter" data-level="6.2" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#infrastructure-to-provide"><i class="fa fa-check"></i><b>6.2</b> Infrastructure to provide</a></li>
-<li class="chapter" data-level="6.3" data-path="how-to-make-this-happen.html"><a href="how-to-make-this-happen.html#misc"><i class="fa fa-check"></i><b>6.3</b> Misc</a></li>
+<li class="chapter" data-level="7" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>7</b> Extension to unsupervised learning</a><ul>
+<li class="chapter" data-level="7.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>7.1</b> Invertible Mappings</a></li>
 </ul></li>
 </ul>
 
@@ -144,7 +143,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">Some thoughts on modelling in R</h1>
 <h4 class="author"><em>Alex Hayes</em></h4>
-<h4 class="date"><em>2017-12-19</em></h4>
+<h4 class="date"><em>2017-12-29</em></h4>
 </div>
 <div id="motivation" class="section level1">
 <h1><span class="header-section-number">Part 1</span> Motivation</h1>
@@ -172,7 +171,7 @@ nb_preds &lt;-<span class="st"> </span><span class="kw">predict</span>(nb_model,
 <li><code>knn</code> and <code>naiveBayes</code> both return factor predictions by default, but this might not be the case for other packages. If we want to class probabilities, we have to pass <code>prob = TRUE</code> to <code>knn</code> and <code>type = &quot;raw&quot;</code> to <code>predict.naiveBayes</code>, and the outputs are in entirely different formats.</li>
 </ul>
 <p>That is, there isn’t a consistent interface to the packages themselves. Additionally, the packages don’t make use of a conceptual framework that makes it easy to think about modelling.</p>
-<p>The goal is the document is provide a grammar of modelling that resolves both of these problems.</p>
+<p>The goal of the document is provide a grammar of modelling that resolves both of these problems.</p>
 
 </div>
             </section>
@@ -181,7 +180,7 @@ nb_preds &lt;-<span class="st"> </span><span class="kw">predict</span>(nb_model,
         </div>
       </div>
 
-<a href="objects-in-a-grammar-of-supervised-learning.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="models-and-model-families.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -210,8 +209,8 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
+"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/index.Rmd",
+"text": "Edit"
 },
 "download": null,
 "toc": {

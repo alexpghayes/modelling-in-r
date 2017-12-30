@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="proposed-interface.html">
-
+<link rel="prev" href="fitting-model-families.html">
+<link rel="next" href="existing-interfaces.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -140,31 +140,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="extension-to-unsupervised-learning" class="section level1">
-<h1><span class="header-section-number">Part 7</span> Extension to unsupervised learning</h1>
-<p>This interface could also be extended to unsupervised learning following the spirit of <code>Scikit-Learn</code> by replacing the <code>predict</code> method with <code>transform</code> in the unsupervised case.</p>
-<p>Model families make sense in the unsupervised domain. For example, k-means and convex clustering both involve some sort of hyperparameter selection.</p>
+<div id="interface-desirables" class="section level1">
+<h1><span class="header-section-number">Part 4</span> Interface desirables</h1>
+<p><strong>Uses as much language from <code>Scikit-Learn</code> as possible</strong></p>
+<p>Since <code>Scikit-Learn</code> is likely the most uniform and widely known interface for predictive modelling, this reduces cognitive load. Additionally, the Python ML world has a strong tradition of implementing new models with the <code>Scikit-Learn</code> interface that we hope will carry over to new researchers implementing new methods in R.</p>
+<p><strong>Researchers can easily implement new models that conform to the interface</strong></p>
+<p>This is because we often want to use multiple models at the same time, and it’s a nightmare when these models don’t share the same API.</p>
+<p><strong>Each model and model family corresponds to a single distinct class</strong></p>
+<p>This makes it easy to provide an interface compliant template that researchers can will fill in with new models they implement. It also allows them to write custom S3 methods, which they likely expect, and to provide smart cross-validation schemes when appropriate.</p>
+<p><strong>Ensembling is easy</strong></p>
+<p>Most users interested in prediction will create an ensemble at some point. To appeal to the Kaggle crowd as much as possible, it should be easy to bag, boost and stack models to arbitrary depths.</p>
+<p>Additionally, a number of R packages use the <a href="https://github.com/ecpolley/SuperLearner"><code>SuperLearner</code></a> package as the basis for <a href="http://biostats.bepress.com/ucbbiostat/paper222/">Super Learner</a> and <a href="https://arxiv.org/pdf/1510.04740.pdf">semi-parametric inference</a>. If new machine learning techniques implement a standardized interface, then packages like <code>SuperLearner</code> (and also <code>caret</code> and <code>mlr</code> for that matter) don’t need to implement wrappers for each new model.</p>
+<p><strong>Facilitates automated machine learning</strong></p>
+<p>Recently industrial data science has been tending toward automating as many redundant parts of the modelling process as possible. Take for example:</p>
 <ul>
-<li>For convex clustering you want to select a penalization parameter, probably optimizing one of several proposed clustering statistics</li>
-<li>For k-means you want to take the mode of cluster assignments, so <code>transform(k_means)</code> is probably a bad idea, but <code>transform(k_means_family)</code> would be interesting.</li>
+<li><a href="http://docs.h2o.ai/h2o/latest-stable/h2o-docs/automl.html">H2O’s Automated Machine Learning</a>, which has already landed in R with <code>h2o.automl()</code></li>
+<li><a href="https://www.h2o.ai/driverless-ai/">H2O’s Driverless AI</a></li>
+<li><a href="https://medium.com/airbnb-engineering/automated-machine-learning-a-paradigm-shift-that-accelerates-data-scientist-productivity-airbnb-f1f8a10d61f8">Airbnb’s modelling workflow</a></li>
+<li><a href="https://github.com/rhiever/tpot">TPOT</a></li>
+<li><a href="https://mlr-org.github.io/mlrMBO/">mlrMBO</a></li>
+<li><a href="https://github.com/HIPS/Spearmint">Spearmint</a></li>
 </ul>
-<div id="invertible-mappings" class="section level2">
-<h2><span class="header-section-number">7.1</span> Invertible Mappings</h2>
-<p>I want a standard S3 method for invertible mappings in the spirit of <code>scale</code>/<code>unscale</code>. In some sense recipes does this, but only for the forward transformation. <code>scale</code>/<code>unscale</code> store information about the transformation in the returned object, which I’m not sold on. I’d prefer the following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_model &lt;-<span class="st"> </span><span class="kw">pca</span>(X)                 <span class="co"># pca(X) wraps fit(new_pca(), X)</span>
-Z &lt;-<span class="st"> </span><span class="kw">transform</span>(pca_model, X)              <span class="co"># transform performs forward mapping</span>
-X_recovered &lt;-<span class="st"> </span><span class="kw">untransform</span>(pca_model, Z)  <span class="co"># untransform performs inverse mapping</span></code></pre></div>
-<p>and then you could provide the standard wrappers like <code>fit_transform</code>, <code>fit_untransform</code>, etc.</p>
+<p>In terms of implementation, this means it should be easy to programmatically generate and manipulate <code>model</code> and <code>model family</code>s. This also means that hyperparameter space specifications should be flexible and informative enough to handle new hyperparameter search algorithms, and that it should be easy to specify smart defaults.</p>
+<p>I think it would also be nice to “metalearn” good hyperparameters to try initially, as in <a href="https://papers.nips.cc/paper/5872-efficient-and-robust-automated-machine-learning.pdf">auto-sklearn</a>.</p>
+<p><strong>Tidy and pipeable data structures</strong></p>
+<p>The interface should conform to <a href="https://www.tidyverse.org/">tidyverse</a> principles, given the consistent standards and wide user adoption of the tidyverse.</p>
+<p><strong>Users think in terms of <code>model family</code>s</strong></p>
+<p>Since it’s most intuitive to think about model families, we want the interface to reflect this. For operations that require an actual <code>model</code>, such as prediction, users should be able to pass in <code>model family</code> objects, and then have the software automatically extract and use the best <code>model</code> in the <code>model family</code>. The interface should provide a clear idea of what it means to <code>fit</code> a model family, so that interested users can customize hyperparameter spaces and selection techniques.</p>
+<p>Keeping these desirables in mind, let’s think about how existing machine learning libraries work.</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="proposed-interface.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="fitting-model-families.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="existing-interfaces.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -193,7 +205,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/06-unsupervised-learning.Rmd",
+"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/03-interface-desirables.Rmd",
 "text": "Edit"
 },
 "download": null,

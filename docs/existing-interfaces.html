@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Some thoughts on modelling in R</title>
+  <meta name="description" content="Some thoughts on modelling in R">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Some thoughts on modelling in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Some thoughts on modelling in R" />
+  
+  
+  
+
+<meta name="author" content="Alex Hayes">
+
+
+<meta name="date" content="2017-12-29">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="interface-desirables.html">
+<link rel="next" href="proposed-interface.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Motivation</a></li>
+<li class="chapter" data-level="2" data-path="models-and-model-families.html"><a href="models-and-model-families.html"><i class="fa fa-check"></i><b>2</b> Models and model families</a></li>
+<li class="chapter" data-level="3" data-path="fitting-model-families.html"><a href="fitting-model-families.html"><i class="fa fa-check"></i><b>3</b> Fitting model families</a></li>
+<li class="chapter" data-level="4" data-path="interface-desirables.html"><a href="interface-desirables.html"><i class="fa fa-check"></i><b>4</b> Interface desirables</a></li>
+<li class="chapter" data-level="5" data-path="existing-interfaces.html"><a href="existing-interfaces.html"><i class="fa fa-check"></i><b>5</b> Existing interfaces</a><ul>
+<li class="chapter" data-level="5.1" data-path="existing-interfaces.html"><a href="existing-interfaces.html#scikit-learn"><i class="fa fa-check"></i><b>5.1</b> Scikit-Learn</a></li>
+<li class="chapter" data-level="5.2" data-path="existing-interfaces.html"><a href="existing-interfaces.html#caret"><i class="fa fa-check"></i><b>5.2</b> caret</a></li>
+<li class="chapter" data-level="5.3" data-path="existing-interfaces.html"><a href="existing-interfaces.html#mlr"><i class="fa fa-check"></i><b>5.3</b> mlr</a></li>
+<li class="chapter" data-level="5.4" data-path="existing-interfaces.html"><a href="existing-interfaces.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>5.4</b> Idiomatic modelling in R</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="proposed-interface.html"><a href="proposed-interface.html"><i class="fa fa-check"></i><b>6</b> Proposed interface</a><ul>
+<li class="chapter" data-level="6.1" data-path="proposed-interface.html"><a href="proposed-interface.html#objects-in-play"><i class="fa fa-check"></i><b>6.1</b> Objects in play</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="proposed-interface.html"><a href="proposed-interface.html#model-calibration"><i class="fa fa-check"></i><b>6.1.1</b> Model calibration</a></li>
+<li class="chapter" data-level="6.1.2" data-path="proposed-interface.html"><a href="proposed-interface.html#hyperparameter-space-definition"><i class="fa fa-check"></i><b>6.1.2</b> Hyperparameter space definition</a></li>
+<li class="chapter" data-level="6.1.3" data-path="proposed-interface.html"><a href="proposed-interface.html#hyperparameter-search"><i class="fa fa-check"></i><b>6.1.3</b> Hyperparameter search</a></li>
+<li class="chapter" data-level="6.1.4" data-path="proposed-interface.html"><a href="proposed-interface.html#model-and-model-family-objects"><i class="fa fa-check"></i><b>6.1.4</b> Model and model family objects</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="proposed-interface.html"><a href="proposed-interface.html#model-instantiation"><i class="fa fa-check"></i><b>6.2</b> Model Instantiation</a></li>
+<li class="chapter" data-level="6.3" data-path="proposed-interface.html"><a href="proposed-interface.html#model-fitting"><i class="fa fa-check"></i><b>6.3</b> Model fitting</a></li>
+<li class="chapter" data-level="6.4" data-path="proposed-interface.html"><a href="proposed-interface.html#prediction"><i class="fa fa-check"></i><b>6.4</b> Prediction</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>7</b> Extension to unsupervised learning</a><ul>
+<li class="chapter" data-level="7.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>7.1</b> Invertible Mappings</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Some thoughts on modelling in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="existing-interfaces" class="section level1">
+<h1><span class="header-section-number">Part 5</span> Existing interfaces</h1>
+<div id="scikit-learn" class="section level2">
+<h2><span class="header-section-number">5.1</span> Scikit-Learn</h2>
+<p>Scikit-Learn knocks it out of the park in a couple areas:</p>
+<ul>
+<li>The API is consistent and easy to understand</li>
+<li>It’s easy to comply with the interface when designing new models or drop in replacements</li>
+<li>There are many extensions to facilitate ensembling and automatic hyperparameter selection</li>
+</ul>
+<p>Working with models is quite intuitive as well. For example, to <code>fit</code> a KNN model for classification with five neighbors, we could do the following:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> sklearn <span class="im">import</span> neighbors
+knn <span class="op">=</span> neighbors.KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">5</span>)
+knn.fit(X, y)
+knn.predict(X_test)</code></pre></div>
+<p>However, Scikit-Learn doesn’t provide convenient abstractions for dealing with model families.</p>
+<p>Consider KNN where we would like to use random search to select a value of <code>k</code>, which looks something like:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">hyperparameter_space <span class="op">=</span> {
+    <span class="st">&#39;n_neighbors&#39;</span>: sp_randint(<span class="dv">1</span>, <span class="dv">31</span>)  <span class="co"># pick k in [1, 2, ..., 30]</span>
+}
+
+knn <span class="op">=</span> RandomizedSearchCV(KNeighborsClassifier(),
+                         param_distributions<span class="op">=</span>hyperparameter_space)
+
+knn.fit(X, y)</code></pre></div>
+<p>Here we have to create a random search object and wrap it around the KNN classifier. This hyperparameter search object now acts the original model. I find this somewhat confusing.</p>
+<p>Unfortunately, we have to manually specify the hyperparameter space, even though there are sane defaults. Additionally, different hyperparameter search objects accept different forms of hyperparameter specifications. For example, if we wanted to use a grid search, we’d need to pass in a list for <code>n_neighbors</code>, and if we wanted to use Tree Parzen Estimators from the <code>hyperopt</code> library, we’d have to use hyperopt’s custom hyperparameter space specifications.</p>
+<p>Another concern is that this doesn’t allow us to take advantage of structure in the hyperparameter space. For example, with KNN, assuming we aren’t doing any fancy approximation methods, we really want to calculate pairwise distances exactly once, and then reuse that pairwise distance information to select <code>k</code>. Instead we recalculate pairwise distances for each <code>k</code>, which is inefficient. Similarly, for penalized regressions, we don’t want to fit models for each value of the penalty parameter, we want to fit the entire solution path all at once.</p>
+<p>Scikit-Learn provides some work arounds to this. For example, with ridge regression, we can fit a <code>RidgeCV</code> object which efficiently performs cross-validation on the regularization parameter:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> sklearn <span class="im">import</span> linear_model
+reg <span class="op">=</span> linear_model.RidgeCV(alphas<span class="op">=</span>[<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">10.0</span>])
+reg.fit([[<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">1</span>]], [<span class="dv">0</span>, .<span class="dv">1</span>, <span class="dv">1</span>])       
+RidgeCV(alphas<span class="op">=</span>[<span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">10.0</span>], cv<span class="op">=</span><span class="va">None</span>, fit_intercept<span class="op">=</span><span class="va">True</span>, scoring<span class="op">=</span><span class="va">None</span>,
+        normalize<span class="op">=</span><span class="va">False</span>)</code></pre></div>
+<p>However, now we have to remember to call <code>RidgeCV</code>, resulting in a cluttered space of models that we need to keep track of.</p>
+<p>In any case, the result is that the code we write is tightly tied to our hyperparameter search method. This is somewhat brittle and I think will prove frustrating as the literature on hyperparameter search continues to grow. Additionally, beginners are most likely to use easy to understand yet inefficient methods such as grid search, since that code is the easiest to understand and provided in the examples.</p>
+<div id="aside-automatic-ml-extensions" class="section level4">
+<h4><span class="header-section-number">5.1.0.1</span> Aside: automatic ML extensions</h4>
+<p>Many of the Scikit-Learn extensions offer drop in classifiers or regressors. While these abstract the hyperparameter and model selection problems away from users, these systems tend to be designed for more hands off production use and are overly abstract at times.</p>
+<p>Consider the popular pipeline optimization package TPOT, which has the following interface</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> tpot <span class="im">import</span> TPOTClassifier
+<span class="im">from</span> sklearn.datasets <span class="im">import</span> load_digits
+<span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split
+
+digits <span class="op">=</span> load_digits()
+X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(digits.data, digits.target,
+                                                    train_size<span class="op">=</span><span class="fl">0.75</span>, test_size<span class="op">=</span><span class="fl">0.25</span>)
+
+pipeline_optimizer <span class="op">=</span> TPOTClassifier(generations<span class="op">=</span><span class="dv">5</span>, population_size<span class="op">=</span><span class="dv">20</span>, cv<span class="op">=</span><span class="dv">5</span>,
+                                    random_state<span class="op">=</span><span class="dv">42</span>, verbosity<span class="op">=</span><span class="dv">2</span>)
+pipeline_optimizer.fit(X_train, y_train)</code></pre></div>
+<p>In this case the user is working with an entire prediction pipeline, as opposed to a single model family.</p>
+</div>
+<div id="another-aside-model-instantiation" class="section level4">
+<h4><span class="header-section-number">5.1.0.2</span> Another aside: model instantiation</h4>
+<p>In <code>Scikit-Learn</code> you have to instantiate a <code>KNeighborsClassifier</code> object and afterward call <code>fit</code> on it. This differs from R where a dominant paradigm is to instantiate a model and train it with a single call, like so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knn_model &lt;-<span class="st"> </span><span class="kw">knn_classifer</span>(y <span class="op">~</span><span class="st"> </span>., data, <span class="dt">k =</span> <span class="dv">5</span>)</code></pre></div>
+</div>
+</div>
+<div id="caret" class="section level2">
+<h2><span class="header-section-number">5.2</span> caret</h2>
+<p>In my mind, the <code>caret</code> library most closely matches my intuition about working with <code>model family</code>s rather than <code>model</code>s.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
+
+fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method =</span> <span class="st">&quot;repeatedcv&quot;</span>,
+                           <span class="dt">number =</span> <span class="dv">10</span>,
+                           <span class="dt">repeats =</span> <span class="dv">10</span>)
+
+knn_model &lt;-<span class="st"> </span><span class="kw">train</span>(Species <span class="op">~</span><span class="st"> </span>.,
+                   <span class="dt">data =</span> iris, 
+                   <span class="dt">method =</span> <span class="st">&quot;knn&quot;</span>, 
+                   <span class="dt">trControl =</span> fitControl)</code></pre></div>
+<p>I like that the hyperparameter selection strategy is an argument (<code>trControl</code>) to the fit method, and I particularly like that each model comes with a default hyperparameter space specification. In the example above, <code>caret</code> automatically uses grid search on <span class="math inline">\(\k \in \{5, 7, 9}\)</span>. Caret also takes advantage of built in, smart hyperparameter selection like <code>cv.glmnet</code> instead of manually checking values of <span class="math inline">\(\lambda\)</span>.</p>
+<p>While caret partial abstracts away the hyperparameter selection problem, the default hyperparameter search is often not extensive enough to ignore hyperparameter selection. Users can pass in a data frame to specify a hyperparameter grid. However, caret only provides a limited number of built in hyperparameter search algorithms (grid search, grid search with racing and random search), so users have to write wrappers around to train to take advantage of bayesian optimization, for example.</p>
+<p>I think that well defined hyperparameter spaces, hyperparameter optimization functions, and arguments to specify both would go a long way toward improving ease of use. I would also like to see the specification of hyperparameter search algorithm separated from the resampling specification. Users can also use <code>train</code> to fit models rather than model families, by passing in a hyperparameter grid containing only a single point. I am not a fan of this, as I believe it blurs the distinct between models and model families.</p>
+<p>Caret is not tidy, and an occasion argument/function names can be difficult to grok at first. Lastly, caret does not have built in ensembling. There’s the <code>caretEnsemble</code> extension but I find the interface somewhat hard to use.</p>
+<p>The takeaway is that caret is a fantastic package that makes life a lot easier, but that it contains some design details that mean it probably isn’t an API to set as a communal standard for scientists producing packages.</p>
+<p>Aside: caret doesn’t require object instantiation like Scikit-Learn does.</p>
+</div>
+<div id="mlr" class="section level2">
+<h2><span class="header-section-number">5.3</span> mlr</h2>
+<p>I’m including <code>mlr</code> here because it does contains lots of useful functionality, but I haven’t spent much time the package and don’t have a particularly principled critique. I find the interface rather unappealing, but can’t put my finger on exactly why.</p>
+<p>To use linear discriminant analysis on the iris dataset, you would:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlr)
+
+task =<span class="st"> </span><span class="kw">makeClassifTask</span>(<span class="dt">data =</span> iris, <span class="dt">target =</span> <span class="st">&quot;Species&quot;</span>)
+lrn =<span class="st"> </span><span class="kw">makeLearner</span>(<span class="st">&quot;classif.lda&quot;</span>)
+
+n =<span class="st"> </span><span class="kw">nrow</span>(iris)
+train.set =<span class="st"> </span><span class="kw">sample</span>(n, <span class="dt">size =</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span><span class="op">*</span>n)
+test.set =<span class="st"> </span><span class="kw">setdiff</span>(<span class="dv">1</span><span class="op">:</span>n, train.set)
+
+model =<span class="st"> </span><span class="kw">train</span>(lrn, task, <span class="dt">subset =</span> train.set)
+
+pred =<span class="st"> </span><span class="kw">predict</span>(model, <span class="dt">task =</span> task, <span class="dt">subset =</span> test.set)
+<span class="kw">performance</span>(pred, <span class="dt">measures =</span> <span class="kw">list</span>(mmce, acc))</code></pre></div>
+<p>In particular, I don’t like that I have to specify a task and I don’t like specifying the outcome variable via string.</p>
+<p>Through the <code>mlrMBO</code> extension we can use bayesian optimization techniques to define and search hyperparameter spaces, like so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlrMBO)
+
+par.set =<span class="st"> </span><span class="kw">makeParamSet</span>(
+  <span class="kw">makeDiscreteParam</span>(<span class="st">&quot;kernel&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;radial&quot;</span>, <span class="st">&quot;polynomial&quot;</span>, <span class="st">&quot;linear&quot;</span>)),
+  <span class="kw">makeNumericParam</span>(<span class="st">&quot;cost&quot;</span>, <span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dt">trafo =</span> <span class="cf">function</span>(x) <span class="dv">2</span><span class="op">^</span>x),
+  <span class="kw">makeNumericParam</span>(<span class="st">&quot;gamma&quot;</span>, <span class="op">-</span><span class="dv">15</span>, <span class="dv">15</span>, <span class="dt">trafo =</span> <span class="cf">function</span>(x) <span class="dv">2</span><span class="op">^</span>x, <span class="dt">requires =</span> <span class="kw">quote</span>(kernel <span class="op">==</span><span class="st"> &quot;radial&quot;</span>)),
+  <span class="kw">makeIntegerParam</span>(<span class="st">&quot;degree&quot;</span>, <span class="dt">lower =</span> <span class="dv">1</span>, <span class="dt">upper =</span> <span class="dv">4</span>, <span class="dt">requires =</span> <span class="kw">quote</span>(kernel <span class="op">==</span><span class="st"> &quot;polynomial&quot;</span>))
+)
+
+ctrl =<span class="st"> </span><span class="kw">makeMBOControl</span>()
+ctrl =<span class="st"> </span><span class="kw">setMBOControlTermination</span>(ctrl, <span class="dt">iters =</span> <span class="dv">5</span>)
+tune.ctrl =<span class="st"> </span><span class="kw">makeTuneControlMBO</span>(<span class="dt">mbo.control =</span> ctrl)
+res =<span class="st"> </span><span class="kw">tuneParams</span>(<span class="kw">makeLearner</span>(<span class="st">&quot;classif.svm&quot;</span>), iris.task, cv3, <span class="dt">par.set =</span> par.set, <span class="dt">control =</span> tune.ctrl,
+  <span class="dt">show.info =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>This is definitely functionality that I want, but there are a lot of different objects happening at the same time in the workspace, and I don’t understand why this is necessary. I also think some of the boilerplate should disappear and models should be provided with default hyperparameter spaces.</p>
+<p>I suppose that my big complaint is that I would rather work with model and model families objects rather than a set of controller objects.</p>
+</div>
+<div id="idiomatic-modelling-in-r" class="section level2">
+<h2><span class="header-section-number">5.4</span> Idiomatic modelling in R</h2>
+<p>Let’s consider an imaginary package using an idiomatic R interface that performs lasso regression. A nicely written package might have an interface like so</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lasso)
+
+lasso_object &lt;-<span class="st"> </span><span class="kw">lasso</span>(X, y, <span class="dt">lambda =</span> <span class="fl">0.01</span>)
+<span class="kw">predict</span>(lasso_object, X_new)</code></pre></div>
+<p>Since there are efficient ways to cross-validate <span class="math inline">\(\lambda\)</span> for lasso regression, the package would likely also implement an interface like</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lasso_cv_object &lt;-<span class="st"> </span><span class="kw">lasso_cv</span>(X, y)
+<span class="kw">predict</span>(lasso_cv_object)</code></pre></div>
+<p>that would automatically select an optimal value of <span class="math inline">\(\lambda\)</span>. A nice package author would make <code>lasso</code> and <code>lasso_cv</code> generics and would also implement formula or even <a href="https://github.com/topepo/recipes">recipe</a> interfaces to the model, like so</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lasso_object &lt;-<span class="st"> </span><span class="kw">lasso</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> df, <span class="dt">lambda =</span> <span class="fl">0.01</span>)
+lasso_cv_object &lt;-<span class="st"> </span><span class="kw">lasso_cv</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> df)</code></pre></div>
+<p>I think this is a clean interface and a good standard to keep until something better comes along. In the long term, I would like the community standard for modelling to change, because:</p>
+<ul>
+<li>When there isn’t a smart way to select to perform cross-validation, you have to write hyperparameter search code yourself, and small variations in interface design mean you have to do this for each different model you work with. That is, most of the time people work with multiple models, so it is incredibly convenient to be able to do something like:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_familys &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">lasso</span>(), <span class="kw">ridge</span>(), <span class="kw">OLS</span>())
+train_models &lt;-<span class="st"> </span><span class="kw">map</span>(models, <span class="op">~</span><span class="kw">fit</span>(model_familys, y <span class="op">~</span><span class="st"> </span>., data))</code></pre></div>
+<p>but this isn’t possible because each function has it’s own version of <code>fit</code>.</p>
+<ul>
+<li><p>Unless there’s a <code>recipe</code> interface to the <code>lasso_cv</code> function there isn’t a way to do principled preprocessing when resampling to estimate prediction error</p></li>
+<li><p>Feature creep inevitably means that individual packages add resampling, hyperparameter search and preprocessing functionality to the <code>lasso</code> and <code>lasso_cv</code> functions, making it difficult to extend them or write modular code</p></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="interface-desirables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="proposed-interface.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/04-existing-interfaces.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

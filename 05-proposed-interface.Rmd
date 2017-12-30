@@ -1,0 +1,165 @@
+# Proposed interface
+
+Okay, now that we've taken a look at some interfaces, let's imagine an interface that makes operations on `model` and `model family`s feel natural in R.
+
+## Objects in play
+
+Recall that to fit a model, we need:
+
+- Data
+- Specific hyperparameter values
+- A way to train the model given data and specific hyperparameters
+
+On the other hand, to fit a model family, we need:
+
+- Data
+- The hyperparameter space to consider
+- A way to train the model given data and specific hyperparameters
+- A way to search through hyperparameter space
+- A way to determine which trained model is best
+
+Our task is now to design intuitive ways to specify all of these. Thankfully, Max Kuhn has already solved several of these problems for us:
+
+- The `recipes` package creates maps from messy input data to design matrices, generalizing the formula. The learned map can then be applied to new data.
+- The `yardstick` package provides tidy calculations of various performance metrics given predictions and the baseline truth
+- The `tidyposterior` package provides methods to compare models within a model family by comparing resampled performance metrics
+- The `rsample` package provides infrastructure for a variety of resampling strategies (although does not provide a way to specify a resampling scheme beyond raw `rset`s)
+
+CRAN provides packages to fit most models of interest. This leaves us with a couple remaining problems that we will assume have nice solutions for the moment.
+
+### Model calibration
+
+We need to be able to find the best model in a given model family. For the sake of this document, we'll assume there's an imaginary `calibration` object that consists of: (1) a resampling specification, (2) a performance metric and (3) an appropriate strategy for comparing performance metrics.
+
+As a concrete example, a `calibration` object might specify that each model in the model should be fit on 20 bootstrap samples, and the best model would have the lowest average training RMSE on resamples datasets.
+
+### Hyperparameter space definition
+
+For now, I'm going to assume that the problem of hyperparameter space definition has been solved, and that there are nice `hp_space` objects that contain this information. 
+
+### Hyperparameter search
+
+Similarly, let's assume that there are standard functions for searching through hyperparameter space of class `hp_search`.
+
+See the [github issues](https://github.com/alexpghayes/modelling-in-r/issues) for some thoughts on what these might look like.
+
+### Model and model family objects
+
+#### `model`
+
+- `trained`: a logical indicating if the model has been fit
+- `design`: a `recipe` specifying a transformation into a design matrix
+- `hyperparameters`: a named list of hyperparameters to fit the model
+
+#### `model_family`
+
+- `trained`: a logical indicating if the model has been fit
+- `design`: a `recipe` specifying a transformation into a design matrix
+- `hp_space`: a `hp_space` object
+- `hp_search`: a `hp_search` object
+- `calibration`: a `calibration` object
+
+#### Pipeable helpers
+
+Each of the following would accept a `model` or `model_family` object and update the appropriate field:
+
+- `add_design` would return a model with an updated `design` field. It would nice for this to be a generic that also had matrix and formula methods that promoted data up to recipes and data frames
+- `add_hp_space`, `add_hp_search` and `add_calibration` would work the same way
+
+## Model Instantiation
+
+Let's assume we'd like to use the KNN model family.
+
+In terms of implementation, I think things will be easiest if each model has a dedicated object initialization function. This function should return an object of class `c("knn", "model_family")`, with reasonable defaults in the `hp_space`, `hp_search` and `calibration` fields:
+
+```{r}
+knn_family <- new_knn()
+```
+
+But since the current paradigm in R doesn't involve instantiating model objects before fitting them, I think it would also be good to provide a wrapper called `knn` that first creates a `knn` object and then fits it. That is, the following should all be equivalent:
+
+```{r}
+knn_fam_untrained <- new_knn()
+knn_family <- fit(knn_fam_untrained, design, data)
+
+knn_family <- knn(design, data)
+
+knn_family <- new_knn() %>% 
+  fit(design, data)
+
+knn_family <- new_knn() %>% 
+  add_design(design, data) %>% 
+  fit()
+```
+
+## Model fitting
+
+To fit a `model` object, we could then do any of the following, returning an object of class `c("knn", "model_family")`. 
+
+```{r}
+knn_model <- knn(design, data, hp_space(k = 13, metric = "euclidean"))
+
+knn_model <- fit(new_knn(), design, data,
+                 hp_space = hp_space(k = 13, metric = "euclidean"))
+
+knn_model <- new_knn() %>% 
+  add_design(recipe, data) %>% 
+  add_hp_space(k = 13, metric = "euclidean") %>% 
+  fit()
+```
+
+Since we are fitting a `model` rather than `model_family` here we don't need to specify a hyperparameter search algorithm or a performance assessment specification.
+
+That is, you get a `model` back when there is a single set of hyperparameters in the `hp_space` and a `model_family` anytime the `hp_space` specifies multiple/infinite hyperparameter combinations.
+
+To fit `model_family` objects, the following would be equivalent
+
+```{r}
+knn_family <- knn(design, data)
+
+# and showing default arguments
+
+knn_family <- fit(model_family = new_knn(), # not a default argument!
+                  design = design,
+                  data = data,
+                  hp_space = default_knn_hp_space,
+                  hp_strategy = gaussian_process_opt,
+                  calibration = default_calibration)
+```
+
+For users departing from the defaults, this might look like
+
+```{r}
+hyperparams <- hp_space(k = 3:4, metric = c("euclidean", "manhattan"))
+resamp_spec <- calibration(score = "mae", sampling = "bootstrap", reps = 10)
+
+knn_family <- new_knn() %>% 
+  add_design(recipe, data) %>% 
+  add_hp_space(hyperparams) %>% 
+  add_hp_search(hyperband) %>% 
+  add_resampling(resamp_spec) %>% 
+  fit()
+```
+
+If you wanted to do inference on the best `model` in `knn_family`, you could get it with
+
+```{r}
+best_knn_model <- extract_model(knn_family)
+```
+
+## Prediction
+
+Default predict methods should always return predictions of the same type as the input data. That is, if you specify a numeric outcome, you get a numeric prediction, if you specify a factor outcome, you get a factor prediction. This makes it easy for users to assess model performance, which is probably the first thing you want to do do after predicting.
+
+This would look like
+
+```{r}
+predictions <- predict(knn_family, newdata)
+predictions <- predict(best_knn_model, newdata)
+```
+
+For sanity and consistency with `Scikit-Learn`, I think it would be good to add a new generic `predict_proba` to get class probabilities for classification problems
+
+```{r}
+class_probs <- predict_proba(knn_family, newdata)
+```
