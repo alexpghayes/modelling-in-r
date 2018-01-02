@@ -33,6 +33,8 @@ We need to be able to find the best model in a given model family. For the sake 
 
 As a concrete example, a `calibration` object might specify that each model in the model should be fit on 20 bootstrap samples, and the best model would have the lowest average training RMSE on resamples datasets.
 
+TODO: min RMSE, or min RMSE within 1-SE following Breiman
+
 ### Hyperparameter space definition
 
 For now, I'm going to assume that the problem of hyperparameter space definition has been solved, and that there are nice `hp_space` objects that contain this information. 
@@ -163,3 +165,12 @@ For sanity and consistency with `Scikit-Learn`, I think it would be good to add 
 ```{r}
 class_probs <- predict_proba(knn_family, newdata)
 ```
+
+## Shortcut methods
+
+TODO. things like
+
+```{r}
+fit_predict, fit_transform, fit_score, etc
+```
+

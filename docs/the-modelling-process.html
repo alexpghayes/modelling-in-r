@@ -25,7 +25,7 @@
 <meta name="author" content="Alex Hayes">
 
 
-<meta name="date" content="2017-12-29">
+<meta name="date" content="2018-01-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -101,7 +101,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Motivation</a></li>
 <li class="chapter" data-level="2" data-path="models-and-model-families.html"><a href="models-and-model-families.html"><i class="fa fa-check"></i><b>2</b> Models and model families</a></li>
-<li class="chapter" data-level="3" data-path="fitting-model-families.html"><a href="fitting-model-families.html"><i class="fa fa-check"></i><b>3</b> Fitting model families</a></li>
+<li class="chapter" data-level="3" data-path="the-modelling-process.html"><a href="the-modelling-process.html"><i class="fa fa-check"></i><b>3</b> The modelling process</a></li>
 <li class="chapter" data-level="4" data-path="interface-desirables.html"><a href="interface-desirables.html"><i class="fa fa-check"></i><b>4</b> Interface desirables</a></li>
 <li class="chapter" data-level="5" data-path="existing-interfaces.html"><a href="existing-interfaces.html"><i class="fa fa-check"></i><b>5</b> Existing interfaces</a><ul>
 <li class="chapter" data-level="5.1" data-path="existing-interfaces.html"><a href="existing-interfaces.html#scikit-learn"><i class="fa fa-check"></i><b>5.1</b> Scikit-Learn</a></li>
@@ -119,6 +119,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.2" data-path="proposed-interface.html"><a href="proposed-interface.html#model-instantiation"><i class="fa fa-check"></i><b>6.2</b> Model Instantiation</a></li>
 <li class="chapter" data-level="6.3" data-path="proposed-interface.html"><a href="proposed-interface.html#model-fitting"><i class="fa fa-check"></i><b>6.3</b> Model fitting</a></li>
 <li class="chapter" data-level="6.4" data-path="proposed-interface.html"><a href="proposed-interface.html#prediction"><i class="fa fa-check"></i><b>6.4</b> Prediction</a></li>
+<li class="chapter" data-level="6.5" data-path="proposed-interface.html"><a href="proposed-interface.html#shortcut-methods"><i class="fa fa-check"></i><b>6.5</b> Shortcut methods</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>7</b> Extension to unsupervised learning</a><ul>
 <li class="chapter" data-level="7.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>7.1</b> Invertible Mappings</a></li>
@@ -140,8 +141,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="fitting-model-families" class="section level1">
-<h1><span class="header-section-number">Part 3</span> Fitting model families</h1>
+<div id="the-modelling-process" class="section level1">
+<h1><span class="header-section-number">Part 3</span> The modelling process</h1>
+<p>TODO TODO TODO: DEFINE THE STEPS IN BUILDING A MODEL, CLARIFY THE PURPOSE OF OBJECTS TO DO EACH THING</p>
 <p>Fitting a <code>model</code> is quite different from fitting a <code>model family</code>. To fit a model, we need:</p>
 <ul>
 <li>Data</li>
@@ -158,6 +160,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <p>To find the best model in the model family, we need a performance metric, such as root mean squared error, and an estimate of this metric on out-of-sample model data. This likely means getting multiple estimates of model performance by fitting the same model on resampled datasets.</p>
 <p>Keeping models and model families in mind, let’s think about some features that would make a modelling interface intuitive and useful to users.</p>
+<p>model calibration: specifies both what you need to compare models and how to compare models: think about: compatible types of resampling: different types of CV that you could safely use together</p>
 
 </div>
             </section>

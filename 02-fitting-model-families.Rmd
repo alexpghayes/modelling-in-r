@@ -1,4 +1,6 @@
-# Fitting model families
+# The modelling process
+
+TODO TODO TODO: DEFINE THE STEPS IN BUILDING A MODEL, CLARIFY THE PURPOSE OF OBJECTS TO DO EACH THING
 
 Fitting a `model` is quite different from fitting a `model family`. To fit a model, we need:
 
@@ -17,3 +19,6 @@ On the other hand, to fit a model family, we need:
 To find the best model in the model family, we need a performance metric, such as root mean squared error, and an estimate of this metric on out-of-sample model data. This likely means getting multiple estimates of model performance by fitting the same model on resampled datasets.
 
 Keeping models and model families in mind, let's think about some features that would make a modelling interface intuitive and useful to users. 
+
+
+model calibration: specifies both what you need to compare models and how to compare models: think about: compatible types of resampling: different types of CV that you could safely use together

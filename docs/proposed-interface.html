@@ -25,7 +25,7 @@
 <meta name="author" content="Alex Hayes">
 
 
-<meta name="date" content="2017-12-29">
+<meta name="date" content="2018-01-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -101,7 +101,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Motivation</a></li>
 <li class="chapter" data-level="2" data-path="models-and-model-families.html"><a href="models-and-model-families.html"><i class="fa fa-check"></i><b>2</b> Models and model families</a></li>
-<li class="chapter" data-level="3" data-path="fitting-model-families.html"><a href="fitting-model-families.html"><i class="fa fa-check"></i><b>3</b> Fitting model families</a></li>
+<li class="chapter" data-level="3" data-path="the-modelling-process.html"><a href="the-modelling-process.html"><i class="fa fa-check"></i><b>3</b> The modelling process</a></li>
 <li class="chapter" data-level="4" data-path="interface-desirables.html"><a href="interface-desirables.html"><i class="fa fa-check"></i><b>4</b> Interface desirables</a></li>
 <li class="chapter" data-level="5" data-path="existing-interfaces.html"><a href="existing-interfaces.html"><i class="fa fa-check"></i><b>5</b> Existing interfaces</a><ul>
 <li class="chapter" data-level="5.1" data-path="existing-interfaces.html"><a href="existing-interfaces.html#scikit-learn"><i class="fa fa-check"></i><b>5.1</b> Scikit-Learn</a></li>
@@ -119,6 +119,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.2" data-path="proposed-interface.html"><a href="proposed-interface.html#model-instantiation"><i class="fa fa-check"></i><b>6.2</b> Model Instantiation</a></li>
 <li class="chapter" data-level="6.3" data-path="proposed-interface.html"><a href="proposed-interface.html#model-fitting"><i class="fa fa-check"></i><b>6.3</b> Model fitting</a></li>
 <li class="chapter" data-level="6.4" data-path="proposed-interface.html"><a href="proposed-interface.html#prediction"><i class="fa fa-check"></i><b>6.4</b> Prediction</a></li>
+<li class="chapter" data-level="6.5" data-path="proposed-interface.html"><a href="proposed-interface.html#shortcut-methods"><i class="fa fa-check"></i><b>6.5</b> Shortcut methods</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>7</b> Extension to unsupervised learning</a><ul>
 <li class="chapter" data-level="7.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>7.1</b> Invertible Mappings</a></li>
@@ -171,6 +172,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">6.1.1</span> Model calibration</h3>
 <p>We need to be able to find the best model in a given model family. For the sake of this document, we’ll assume there’s an imaginary <code>calibration</code> object that consists of: (1) a resampling specification, (2) a performance metric and (3) an appropriate strategy for comparing performance metrics.</p>
 <p>As a concrete example, a <code>calibration</code> object might specify that each model in the model should be fit on 20 bootstrap samples, and the best model would have the lowest average training RMSE on resamples datasets.</p>
+<p>TODO: min RMSE, or min RMSE within 1-SE following Breiman</p>
 </div>
 <div id="hyperparameter-space-definition" class="section level3">
 <h3><span class="header-section-number">6.1.2</span> Hyperparameter space definition</h3>
@@ -275,6 +277,11 @@ knn_family &lt;-<span class="st"> </span><span class="kw">new_knn</span>() <span
 predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(best_knn_model, newdata)</code></pre></div>
 <p>For sanity and consistency with <code>Scikit-Learn</code>, I think it would be good to add a new generic <code>predict_proba</code> to get class probabilities for classification problems</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">class_probs &lt;-<span class="st"> </span><span class="kw">predict_proba</span>(knn_family, newdata)</code></pre></div>
+</div>
+<div id="shortcut-methods" class="section level2">
+<h2><span class="header-section-number">6.5</span> Shortcut methods</h2>
+<p>TODO. things like</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit_predict, fit_transform, fit_score, etc</code></pre></div>
 
 </div>
 </div>
