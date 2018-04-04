@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="using-models-programmatic-automated-mode.html">
-<link rel="next" href="best-practices.html">
+<link rel="prev" href="extension-to-unsupervised-learning.html">
+<link rel="next" href="existing-interfaces.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -149,31 +149,50 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="extension-to-unsupervised-learning" class="section level1">
-<h1><span class="header-section-number">Part 9</span> Extension to unsupervised learning</h1>
-<p>This interface could also be extended to unsupervised learning following the spirit of <code>Scikit-Learn</code> by replacing the <code>predict</code> method with <code>transform</code> in the unsupervised case.</p>
-<p>Model families make sense in the unsupervised domain. For example, k-means and convex clustering both involve some sort of hyperparameter selection.</p>
+<div id="best-practices" class="section level1">
+<h1><span class="header-section-number">Part 10</span> Best Practices</h1>
+<p><code>astsa</code> as an example of interactively useful but programmatically a pain</p>
 <ul>
-<li>For convex clustering you want to select a penalization parameter, probably optimizing one of several proposed clustering statistics</li>
-<li>For k-means you want to take the mode of cluster assignments, so <code>transform(k_means)</code> is probably a bad idea, but <code>transform(k_means_family)</code> would be interesting.</li>
+<li>Show your example data in the README so users immediately <em>see</em> the structure</li>
+<li>Model classes beyond lists</li>
 </ul>
-<div id="invertible-mappings" class="section level2">
-<h2><span class="header-section-number">9.1</span> Invertible Mappings</h2>
-<p>I want a standard S3 method for invertible mappings in the spirit of <code>scale</code>/<code>unscale</code>. In some sense recipes does this, but only for the forward transformation. <code>scale</code>/<code>unscale</code> store information about the transformation in the returned object, which I’m not sold on. I’d prefer the following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_model &lt;-<span class="st"> </span><span class="kw">pca</span>(X)                 <span class="co"># pca(X) wraps fit(new_pca(), X)</span>
-Z &lt;-<span class="st"> </span><span class="kw">transform</span>(pca_model, X)              <span class="co"># transform performs forward mapping</span>
-X_recovered &lt;-<span class="st"> </span><span class="kw">untransform</span>(pca_model, Z)  <span class="co"># untransform performs inverse mapping</span></code></pre></div>
-<p>and then you could provide the standard wrappers like <code>fit_transform</code>, <code>fit_untransform</code>, etc.</p>
+<p>best practices: type definitions of methods for most functions</p>
+<p>as soon as there is a recipe interface for GLMs that’s all i’m ever going to use</p>
+<p>habit: get the df right, then y ~ . in the formula. would be nice to still see the features in the call?</p>
+<p>Every modeling function should include its package version in its data object I will now save my models as a list of three objects: model, data, and sessioninfo::session_info()</p>
+<p>Should be easy to get the values plotted so others can make their own plots</p>
+<p>modelling packages: - vignette should include not only the coefficients as output in an example, but also those coefficients written up as a general latex model and as a latex model with those specific coefficients substituted in</p>
+<p>TWO DISTINCT ISSUES THAT GET RESOLVED IN FORMULAE:</p>
+<ul>
+<li>design matrix specification</li>
+<li>model specification. (a la <code>fGarch::garchFit(~arma(1, 1) + garch(1, 0)))</code></li>
+</ul>
+<p>where is the appropriate space in my framework to specify the arma and garch parameters? i.e. we specify these as models rather than model families, (although specifying one as a model family could be interesting as well)</p>
+<p>calls to <code>fit</code> should be pure: i.e. no side effects like plotting, and especially no plotting with invisible object return</p>
+<p>Ok – quite a bit to address here, so bear with me. More General Sparse Regression Interfaces</p>
+<p>My original comment referred to making a lariat (package)-style interface for glmnet which adapts the infrastructure we have for the lariat to lasso regression. I’m obviously more than a bit biased, but I think our interface is smoother than “raw” glmnetand would prefer to use it for lasso problems as well.</p>
+<p>I’m particularly thinking of our:</p>
+<pre><code>ggplot2-based plotting with nice highlighting and labeling selected variables,
+a &quot;tidy&quot; as.data.frame method (which, come to think of it, should be conditionally tibble-ified)
+smart formula interfaces (your work in #5)
+coef and friends with refit and ridge_factor as well as coef(sparsity=n)
+variants of cross-validation beyond K-fold</code></pre>
+<p>and maybe others.</p>
+<p>We’d also be able to smooth out some of the rough edges that glmnet keeps for back-compatability. I’m particularly thinking of the scaling of y [1, 2]</p>
+<p>We’d still use glmnet internally, but the user would never see that. Instead, we’d have lariat::lasso, lariat::lasso_cv, etc.</p>
+<p>Of course, once we’ve wrapped the lasso / elastic net, also wrapping SCAD and MCP is the next logical step. We could use the ncvreg package as the backend for both.</p>
+<p>Once this is in place, we could enrich our formula implementation to automatically use a group penalty where appropriate (factor predictors) based on grpreg and eventually other things.</p>
+<p>Would you be interested in doing this? It’s a good bit of work and there’s definitely no guarantee of wider adoption (glmnet is pretty entrenched). If so, let’s talk in January and sketch a real roadmap.</p>
+<p>(There’s also a bit of a strategic play on my part here: if we have a better interface for lasso regression, folks will have more reason to use the lariat package and from there trying out the lariat method is easier.)</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="using-models-programmatic-automated-mode.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="best-practices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="extension-to-unsupervised-learning.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="existing-interfaces.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -203,7 +222,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/07-unsupervised-learning.Rmd",
+"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/08-best-practices.Rmd",
 "text": "Edit"
 },
 "download": null,

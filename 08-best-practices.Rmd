@@ -1,0 +1,68 @@
+# Best Practices
+
+`astsa` as an example of interactively useful but programmatically a pain
+
+- Show your example data in the README so users immediately *see* the structure
+- Model classes beyond lists
+
+best practices: type definitions of methods for most functions
+
+
+as soon as there is a recipe interface for GLMs that's all i'm ever going to use
+
+habit: get the df right, then y ~ . in the formula. would be nice to still see the features in the call?
+
+
+
+
+Every modeling function should include its package version in its data object
+I will now save my models as a list of three objects: model, data, and sessioninfo::session_info()
+
+
+Should be easy to get the values plotted so others can make their own plots
+
+
+modelling packages:
+ - vignette should include not only the coefficients as output in an example, but also those coefficients written up as a general latex model and as a latex model with those specific coefficients substituted in
+ 
+ 
+ 
+TWO DISTINCT ISSUES THAT GET RESOLVED IN FORMULAE:
+
+- design matrix specification
+- model specification. (a la `fGarch::garchFit(~arma(1, 1) + garch(1, 0)))`
+
+where is the appropriate space in my framework to specify the arma and garch parameters? i.e. we specify these as models rather than model families, (although specifying one as a model family could be interesting as well)
+ 
+ 
+calls to `fit` should be pure: i.e. no side effects like plotting, and especially no plotting with invisible object return
+ 
+Ok -- quite a bit to address here, so bear with me.
+More General Sparse Regression Interfaces
+
+My original comment referred to making a lariat (package)-style interface for glmnet which adapts the infrastructure we have for the lariat to lasso regression. I'm obviously more than a bit biased, but I think our interface is smoother than "raw" glmnetand would prefer to use it for lasso problems as well.
+
+I'm particularly thinking of our:
+
+    ggplot2-based plotting with nice highlighting and labeling selected variables,
+    a "tidy" as.data.frame method (which, come to think of it, should be conditionally tibble-ified)
+    smart formula interfaces (your work in #5)
+    coef and friends with refit and ridge_factor as well as coef(sparsity=n)
+    variants of cross-validation beyond K-fold
+
+and maybe others.
+
+We'd also be able to smooth out some of the rough edges that glmnet keeps for back-compatability. I'm particularly thinking of the scaling of y [1, 2]
+
+We'd still use glmnet internally, but the user would never see that. Instead, we'd have lariat::lasso, lariat::lasso_cv, etc.
+
+Of course, once we've wrapped the lasso / elastic net, also wrapping SCAD and MCP is the next logical step. We could use the ncvreg package as the backend for both.
+
+Once this is in place, we could enrich our formula implementation to automatically use a group penalty where appropriate (factor predictors) based on grpreg and eventually other things.
+
+Would you be interested in doing this? It's a good bit of work and there's definitely no guarantee of wider adoption (glmnet is pretty entrenched). If so, let's talk in January and sketch a real roadmap.
+
+(There's also a bit of a strategic play on my part here: if we have a better interface for lasso regression, folks will have more reason to use the lariat package and from there trying out the lariat method is easier.)
+
+
+

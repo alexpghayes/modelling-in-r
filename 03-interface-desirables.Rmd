@@ -1,5 +1,23 @@
 # Interface desirables
 
+## Desirables necessary for conceptual clarity
+
+**Each model and model family corresponds to a single distinct class**
+
+This makes it easy to provide an interface compliant template that researchers can will fill in with new models they implement. It also allows them to write custom S3 methods, which they likely expect, and to provide smart cross-validation schemes when appropriate.
+
+**Type safe in/out definitions for each method on each class**
+
+
+**Users think in terms of `model family`s**
+
+Since it's most intuitive to think about model families, we want the interface to reflect this. For operations that require an actual `model`, such as prediction, users should be able to pass in `model family` objects, and then have the software automatically extract and use the best `model` in the `model family`. The interface should provide a clear idea of what it means to `fit` a model family, so that interested users can customize hyperparameter spaces and selection techniques. 
+
+Keeping these desirables in mind, let's think about how existing machine learning libraries work.
+
+
+## Desirables necessary for practicality
+
 **Uses as much language from `Scikit-Learn` as possible**
 
 Since `Scikit-Learn` is likely the most uniform and widely known interface for predictive modelling, this reduces cognitive load. Additionally, the Python ML world has a strong tradition of implementing new models with the `Scikit-Learn` interface that we hope will carry over to new researchers implementing new methods in R.
@@ -7,10 +25,6 @@ Since `Scikit-Learn` is likely the most uniform and widely known interface for p
 **Researchers can easily implement new models that conform to the interface**
 
 This is because we often want to use multiple models at the same time, and it's a nightmare when these models don't share the same API.
-
-**Each model and model family corresponds to a single distinct class**
-
-This makes it easy to provide an interface compliant template that researchers can will fill in with new models they implement. It also allows them to write custom S3 methods, which they likely expect, and to provide smart cross-validation schemes when appropriate.
 
 **Ensembling is easy**
 
@@ -37,8 +51,3 @@ I think it would also be nice to "metalearn" good hyperparameters to try initial
 
 The interface should conform to [tidyverse](https://www.tidyverse.org/) principles, given the consistent standards and wide user adoption of the tidyverse.
 
-**Users think in terms of `model family`s**
-
-Since it's most intuitive to think about model families, we want the interface to reflect this. For operations that require an actual `model`, such as prediction, users should be able to pass in `model family` objects, and then have the software automatically extract and use the best `model` in the `model family`. The interface should provide a clear idea of what it means to `fit` a model family, so that interested users can customize hyperparameter spaces and selection techniques. 
-
-Keeping these desirables in mind, let's think about how existing machine learning libraries work.

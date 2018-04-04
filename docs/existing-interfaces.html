@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Some thoughts on modelling in R</title>
   <meta name="description" content="Some thoughts on modelling in R">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Some thoughts on modelling in R" />
   <meta property="og:type" content="book" />
@@ -25,15 +25,15 @@
 <meta name="author" content="Alex Hayes">
 
 
-<meta name="date" content="2018-01-02">
+<meta name="date" content="2018-04-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="interface-desirables.html">
-<link rel="next" href="proposed-interface.html">
+<link rel="prev" href="best-practices.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -102,27 +102,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Motivation</a></li>
 <li class="chapter" data-level="2" data-path="models-and-model-families.html"><a href="models-and-model-families.html"><i class="fa fa-check"></i><b>2</b> Models and model families</a></li>
 <li class="chapter" data-level="3" data-path="the-modelling-process.html"><a href="the-modelling-process.html"><i class="fa fa-check"></i><b>3</b> The modelling process</a></li>
-<li class="chapter" data-level="4" data-path="interface-desirables.html"><a href="interface-desirables.html"><i class="fa fa-check"></i><b>4</b> Interface desirables</a></li>
-<li class="chapter" data-level="5" data-path="existing-interfaces.html"><a href="existing-interfaces.html"><i class="fa fa-check"></i><b>5</b> Existing interfaces</a><ul>
-<li class="chapter" data-level="5.1" data-path="existing-interfaces.html"><a href="existing-interfaces.html#scikit-learn"><i class="fa fa-check"></i><b>5.1</b> Scikit-Learn</a></li>
-<li class="chapter" data-level="5.2" data-path="existing-interfaces.html"><a href="existing-interfaces.html#caret"><i class="fa fa-check"></i><b>5.2</b> caret</a></li>
-<li class="chapter" data-level="5.3" data-path="existing-interfaces.html"><a href="existing-interfaces.html#mlr"><i class="fa fa-check"></i><b>5.3</b> mlr</a></li>
-<li class="chapter" data-level="5.4" data-path="existing-interfaces.html"><a href="existing-interfaces.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>5.4</b> Idiomatic modelling in R</a></li>
+<li class="chapter" data-level="4" data-path="interface-desirables.html"><a href="interface-desirables.html"><i class="fa fa-check"></i><b>4</b> Interface desirables</a><ul>
+<li class="chapter" data-level="4.1" data-path="interface-desirables.html"><a href="interface-desirables.html#desirables-necessary-for-conceptual-clarity"><i class="fa fa-check"></i><b>4.1</b> Desirables necessary for conceptual clarity</a></li>
+<li class="chapter" data-level="4.2" data-path="interface-desirables.html"><a href="interface-desirables.html#desirables-necessary-for-practicality"><i class="fa fa-check"></i><b>4.2</b> Desirables necessary for practicality</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="proposed-interface.html"><a href="proposed-interface.html"><i class="fa fa-check"></i><b>6</b> Proposed interface</a><ul>
-<li class="chapter" data-level="6.1" data-path="proposed-interface.html"><a href="proposed-interface.html#objects-in-play"><i class="fa fa-check"></i><b>6.1</b> Objects in play</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="proposed-interface.html"><a href="proposed-interface.html#model-calibration"><i class="fa fa-check"></i><b>6.1.1</b> Model calibration</a></li>
-<li class="chapter" data-level="6.1.2" data-path="proposed-interface.html"><a href="proposed-interface.html#hyperparameter-space-definition"><i class="fa fa-check"></i><b>6.1.2</b> Hyperparameter space definition</a></li>
-<li class="chapter" data-level="6.1.3" data-path="proposed-interface.html"><a href="proposed-interface.html#hyperparameter-search"><i class="fa fa-check"></i><b>6.1.3</b> Hyperparameter search</a></li>
-<li class="chapter" data-level="6.1.4" data-path="proposed-interface.html"><a href="proposed-interface.html#model-and-model-family-objects"><i class="fa fa-check"></i><b>6.1.4</b> Model and model family objects</a></li>
+<li class="chapter" data-level="5" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html"><i class="fa fa-check"></i><b>5</b> Proposed interface: model fitting</a><ul>
+<li class="chapter" data-level="5.1" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#fitting-a-model-object"><i class="fa fa-check"></i><b>5.1</b> Fitting a <code>model</code> object</a></li>
+<li class="chapter" data-level="5.2" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#objects-in-play"><i class="fa fa-check"></i><b>5.2</b> Objects in play</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#model-calibration"><i class="fa fa-check"></i><b>5.2.1</b> Model calibration</a></li>
+<li class="chapter" data-level="5.2.2" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#hyperparameter-space-definition"><i class="fa fa-check"></i><b>5.2.2</b> Hyperparameter space definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#hyperparameter-search"><i class="fa fa-check"></i><b>5.2.3</b> Hyperparameter search</a></li>
+<li class="chapter" data-level="5.2.4" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#model-and-model-family-objects"><i class="fa fa-check"></i><b>5.2.4</b> Model and model family objects</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="proposed-interface.html"><a href="proposed-interface.html#model-instantiation"><i class="fa fa-check"></i><b>6.2</b> Model Instantiation</a></li>
-<li class="chapter" data-level="6.3" data-path="proposed-interface.html"><a href="proposed-interface.html#model-fitting"><i class="fa fa-check"></i><b>6.3</b> Model fitting</a></li>
-<li class="chapter" data-level="6.4" data-path="proposed-interface.html"><a href="proposed-interface.html#prediction"><i class="fa fa-check"></i><b>6.4</b> Prediction</a></li>
-<li class="chapter" data-level="6.5" data-path="proposed-interface.html"><a href="proposed-interface.html#shortcut-methods"><i class="fa fa-check"></i><b>6.5</b> Shortcut methods</a></li>
+<li class="chapter" data-level="5.3" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#model-instantiation"><i class="fa fa-check"></i><b>5.3</b> Model Instantiation</a></li>
+<li class="chapter" data-level="5.4" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#model-fitting"><i class="fa fa-check"></i><b>5.4</b> Model fitting</a></li>
+<li class="chapter" data-level="5.5" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#prediction"><i class="fa fa-check"></i><b>5.5</b> Prediction</a></li>
+<li class="chapter" data-level="5.6" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#shortcut-methods"><i class="fa fa-check"></i><b>5.6</b> Shortcut methods</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>7</b> Extension to unsupervised learning</a><ul>
-<li class="chapter" data-level="7.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>7.1</b> Invertible Mappings</a></li>
+<li class="chapter" data-level="6" data-path="proposed-interface-using-models.html"><a href="proposed-interface-using-models.html"><i class="fa fa-check"></i><b>6</b> Proposed interface: using models</a></li>
+<li class="chapter" data-level="7" data-path="using-models-interactive-mode.html"><a href="using-models-interactive-mode.html"><i class="fa fa-check"></i><b>7</b> Using models: interactive mode</a></li>
+<li class="chapter" data-level="8" data-path="using-models-programmatic-automated-mode.html"><a href="using-models-programmatic-automated-mode.html"><i class="fa fa-check"></i><b>8</b> Using models: programmatic / automated mode</a></li>
+<li class="chapter" data-level="9" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>9</b> Extension to unsupervised learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>9.1</b> Invertible Mappings</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="best-practices.html"><a href="best-practices.html"><i class="fa fa-check"></i><b>10</b> Best Practices</a></li>
+<li class="chapter" data-level="11" data-path="existing-interfaces.html"><a href="existing-interfaces.html"><i class="fa fa-check"></i><b>11</b> Existing interfaces</a><ul>
+<li class="chapter" data-level="11.1" data-path="existing-interfaces.html"><a href="existing-interfaces.html#scikit-learn"><i class="fa fa-check"></i><b>11.1</b> Scikit-Learn</a></li>
+<li class="chapter" data-level="11.2" data-path="existing-interfaces.html"><a href="existing-interfaces.html#caret"><i class="fa fa-check"></i><b>11.2</b> caret</a></li>
+<li class="chapter" data-level="11.3" data-path="existing-interfaces.html"><a href="existing-interfaces.html#mlr"><i class="fa fa-check"></i><b>11.3</b> mlr</a></li>
+<li class="chapter" data-level="11.4" data-path="existing-interfaces.html"><a href="existing-interfaces.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>11.4</b> Idiomatic modelling in R</a></li>
 </ul></li>
 </ul>
 
@@ -142,9 +150,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="existing-interfaces" class="section level1">
-<h1><span class="header-section-number">Part 5</span> Existing interfaces</h1>
+<h1><span class="header-section-number">Part 11</span> Existing interfaces</h1>
 <div id="scikit-learn" class="section level2">
-<h2><span class="header-section-number">5.1</span> Scikit-Learn</h2>
+<h2><span class="header-section-number">11.1</span> Scikit-Learn</h2>
 <p>Scikit-Learn knocks it out of the park in a couple areas:</p>
 <ul>
 <li>The API is consistent and easy to understand</li>
@@ -161,10 +169,8 @@ knn.predict(X_test)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">hyperparameter_space <span class="op">=</span> {
     <span class="st">&#39;n_neighbors&#39;</span>: sp_randint(<span class="dv">1</span>, <span class="dv">31</span>)  <span class="co"># pick k in [1, 2, ..., 30]</span>
 }
-
 knn <span class="op">=</span> RandomizedSearchCV(KNeighborsClassifier(),
                          param_distributions<span class="op">=</span>hyperparameter_space)
-
 knn.fit(X, y)</code></pre></div>
 <p>Here we have to create a random search object and wrap it around the KNN classifier. This hyperparameter search object now acts the original model. I find this somewhat confusing.</p>
 <p>Unfortunately, we have to manually specify the hyperparameter space, even though there are sane defaults. Additionally, different hyperparameter search objects accept different forms of hyperparameter specifications. For example, if we wanted to use a grid search, we’d need to pass in a list for <code>n_neighbors</code>, and if we wanted to use Tree Parzen Estimators from the <code>hyperopt</code> library, we’d have to use hyperopt’s custom hyperparameter space specifications.</p>
@@ -178,30 +184,28 @@ RidgeCV(alphas<span class="op">=</span>[<span class="fl">0.1</span>, <span class
 <p>However, now we have to remember to call <code>RidgeCV</code>, resulting in a cluttered space of models that we need to keep track of.</p>
 <p>In any case, the result is that the code we write is tightly tied to our hyperparameter search method. This is somewhat brittle and I think will prove frustrating as the literature on hyperparameter search continues to grow. Additionally, beginners are most likely to use easy to understand yet inefficient methods such as grid search, since that code is the easiest to understand and provided in the examples.</p>
 <div id="aside-automatic-ml-extensions" class="section level4">
-<h4><span class="header-section-number">5.1.0.1</span> Aside: automatic ML extensions</h4>
+<h4><span class="header-section-number">11.1.0.1</span> Aside: automatic ML extensions</h4>
 <p>Many of the Scikit-Learn extensions offer drop in classifiers or regressors. While these abstract the hyperparameter and model selection problems away from users, these systems tend to be designed for more hands off production use and are overly abstract at times.</p>
 <p>Consider the popular pipeline optimization package TPOT, which has the following interface</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">from</span> tpot <span class="im">import</span> TPOTClassifier
 <span class="im">from</span> sklearn.datasets <span class="im">import</span> load_digits
 <span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split
-
 digits <span class="op">=</span> load_digits()
 X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(digits.data, digits.target,
                                                     train_size<span class="op">=</span><span class="fl">0.75</span>, test_size<span class="op">=</span><span class="fl">0.25</span>)
-
 pipeline_optimizer <span class="op">=</span> TPOTClassifier(generations<span class="op">=</span><span class="dv">5</span>, population_size<span class="op">=</span><span class="dv">20</span>, cv<span class="op">=</span><span class="dv">5</span>,
                                     random_state<span class="op">=</span><span class="dv">42</span>, verbosity<span class="op">=</span><span class="dv">2</span>)
 pipeline_optimizer.fit(X_train, y_train)</code></pre></div>
 <p>In this case the user is working with an entire prediction pipeline, as opposed to a single model family.</p>
 </div>
 <div id="another-aside-model-instantiation" class="section level4">
-<h4><span class="header-section-number">5.1.0.2</span> Another aside: model instantiation</h4>
+<h4><span class="header-section-number">11.1.0.2</span> Another aside: model instantiation</h4>
 <p>In <code>Scikit-Learn</code> you have to instantiate a <code>KNeighborsClassifier</code> object and afterward call <code>fit</code> on it. This differs from R where a dominant paradigm is to instantiate a model and train it with a single call, like so:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knn_model &lt;-<span class="st"> </span><span class="kw">knn_classifer</span>(y <span class="op">~</span><span class="st"> </span>., data, <span class="dt">k =</span> <span class="dv">5</span>)</code></pre></div>
 </div>
 </div>
 <div id="caret" class="section level2">
-<h2><span class="header-section-number">5.2</span> caret</h2>
+<h2><span class="header-section-number">11.2</span> caret</h2>
 <p>In my mind, the <code>caret</code> library most closely matches my intuition about working with <code>model family</code>s rather than <code>model</code>s.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
 
@@ -221,7 +225,7 @@ knn_model &lt;-<span class="st"> </span><span class="kw">train</span>(Species <s
 <p>Aside: caret doesn’t require object instantiation like Scikit-Learn does.</p>
 </div>
 <div id="mlr" class="section level2">
-<h2><span class="header-section-number">5.3</span> mlr</h2>
+<h2><span class="header-section-number">11.3</span> mlr</h2>
 <p>I’m including <code>mlr</code> here because it does contains lots of useful functionality, but I haven’t spent much time the package and don’t have a particularly principled critique. I find the interface rather unappealing, but can’t put my finger on exactly why.</p>
 <p>To use linear discriminant analysis on the iris dataset, you would:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlr)
@@ -257,7 +261,7 @@ res =<span class="st"> </span><span class="kw">tuneParams</span>(<span class="kw
 <p>I suppose that my big complaint is that I would rather work with model and model families objects rather than a set of controller objects.</p>
 </div>
 <div id="idiomatic-modelling-in-r" class="section level2">
-<h2><span class="header-section-number">5.4</span> Idiomatic modelling in R</h2>
+<h2><span class="header-section-number">11.4</span> Idiomatic modelling in R</h2>
 <p>Let’s consider an imaginary package using an idiomatic R interface that performs lasso regression. A nicely written package might have an interface like so</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lasso)
 
@@ -288,8 +292,8 @@ train_models &lt;-<span class="st"> </span><span class="kw">map</span>(models, <
           </div>
         </div>
       </div>
-<a href="interface-desirables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="proposed-interface.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="best-practices.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -307,10 +311,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -318,7 +323,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/04-existing-interfaces.Rmd",
+"link": "https://github.com/alexpghayes/modelling-in-r/edit/master/09-existing-interfaces.Rmd",
 "text": "Edit"
 },
 "download": null,
@@ -334,9 +339,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

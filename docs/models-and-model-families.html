@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Some thoughts on modelling in R</title>
   <meta name="description" content="Some thoughts on modelling in R">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Some thoughts on modelling in R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Alex Hayes">
 
 
-<meta name="date" content="2018-01-02">
+<meta name="date" content="2018-04-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -102,27 +102,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Motivation</a></li>
 <li class="chapter" data-level="2" data-path="models-and-model-families.html"><a href="models-and-model-families.html"><i class="fa fa-check"></i><b>2</b> Models and model families</a></li>
 <li class="chapter" data-level="3" data-path="the-modelling-process.html"><a href="the-modelling-process.html"><i class="fa fa-check"></i><b>3</b> The modelling process</a></li>
-<li class="chapter" data-level="4" data-path="interface-desirables.html"><a href="interface-desirables.html"><i class="fa fa-check"></i><b>4</b> Interface desirables</a></li>
-<li class="chapter" data-level="5" data-path="existing-interfaces.html"><a href="existing-interfaces.html"><i class="fa fa-check"></i><b>5</b> Existing interfaces</a><ul>
-<li class="chapter" data-level="5.1" data-path="existing-interfaces.html"><a href="existing-interfaces.html#scikit-learn"><i class="fa fa-check"></i><b>5.1</b> Scikit-Learn</a></li>
-<li class="chapter" data-level="5.2" data-path="existing-interfaces.html"><a href="existing-interfaces.html#caret"><i class="fa fa-check"></i><b>5.2</b> caret</a></li>
-<li class="chapter" data-level="5.3" data-path="existing-interfaces.html"><a href="existing-interfaces.html#mlr"><i class="fa fa-check"></i><b>5.3</b> mlr</a></li>
-<li class="chapter" data-level="5.4" data-path="existing-interfaces.html"><a href="existing-interfaces.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>5.4</b> Idiomatic modelling in R</a></li>
+<li class="chapter" data-level="4" data-path="interface-desirables.html"><a href="interface-desirables.html"><i class="fa fa-check"></i><b>4</b> Interface desirables</a><ul>
+<li class="chapter" data-level="4.1" data-path="interface-desirables.html"><a href="interface-desirables.html#desirables-necessary-for-conceptual-clarity"><i class="fa fa-check"></i><b>4.1</b> Desirables necessary for conceptual clarity</a></li>
+<li class="chapter" data-level="4.2" data-path="interface-desirables.html"><a href="interface-desirables.html#desirables-necessary-for-practicality"><i class="fa fa-check"></i><b>4.2</b> Desirables necessary for practicality</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="proposed-interface.html"><a href="proposed-interface.html"><i class="fa fa-check"></i><b>6</b> Proposed interface</a><ul>
-<li class="chapter" data-level="6.1" data-path="proposed-interface.html"><a href="proposed-interface.html#objects-in-play"><i class="fa fa-check"></i><b>6.1</b> Objects in play</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="proposed-interface.html"><a href="proposed-interface.html#model-calibration"><i class="fa fa-check"></i><b>6.1.1</b> Model calibration</a></li>
-<li class="chapter" data-level="6.1.2" data-path="proposed-interface.html"><a href="proposed-interface.html#hyperparameter-space-definition"><i class="fa fa-check"></i><b>6.1.2</b> Hyperparameter space definition</a></li>
-<li class="chapter" data-level="6.1.3" data-path="proposed-interface.html"><a href="proposed-interface.html#hyperparameter-search"><i class="fa fa-check"></i><b>6.1.3</b> Hyperparameter search</a></li>
-<li class="chapter" data-level="6.1.4" data-path="proposed-interface.html"><a href="proposed-interface.html#model-and-model-family-objects"><i class="fa fa-check"></i><b>6.1.4</b> Model and model family objects</a></li>
+<li class="chapter" data-level="5" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html"><i class="fa fa-check"></i><b>5</b> Proposed interface: model fitting</a><ul>
+<li class="chapter" data-level="5.1" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#fitting-a-model-object"><i class="fa fa-check"></i><b>5.1</b> Fitting a <code>model</code> object</a></li>
+<li class="chapter" data-level="5.2" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#objects-in-play"><i class="fa fa-check"></i><b>5.2</b> Objects in play</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#model-calibration"><i class="fa fa-check"></i><b>5.2.1</b> Model calibration</a></li>
+<li class="chapter" data-level="5.2.2" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#hyperparameter-space-definition"><i class="fa fa-check"></i><b>5.2.2</b> Hyperparameter space definition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#hyperparameter-search"><i class="fa fa-check"></i><b>5.2.3</b> Hyperparameter search</a></li>
+<li class="chapter" data-level="5.2.4" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#model-and-model-family-objects"><i class="fa fa-check"></i><b>5.2.4</b> Model and model family objects</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="proposed-interface.html"><a href="proposed-interface.html#model-instantiation"><i class="fa fa-check"></i><b>6.2</b> Model Instantiation</a></li>
-<li class="chapter" data-level="6.3" data-path="proposed-interface.html"><a href="proposed-interface.html#model-fitting"><i class="fa fa-check"></i><b>6.3</b> Model fitting</a></li>
-<li class="chapter" data-level="6.4" data-path="proposed-interface.html"><a href="proposed-interface.html#prediction"><i class="fa fa-check"></i><b>6.4</b> Prediction</a></li>
-<li class="chapter" data-level="6.5" data-path="proposed-interface.html"><a href="proposed-interface.html#shortcut-methods"><i class="fa fa-check"></i><b>6.5</b> Shortcut methods</a></li>
+<li class="chapter" data-level="5.3" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#model-instantiation"><i class="fa fa-check"></i><b>5.3</b> Model Instantiation</a></li>
+<li class="chapter" data-level="5.4" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#model-fitting"><i class="fa fa-check"></i><b>5.4</b> Model fitting</a></li>
+<li class="chapter" data-level="5.5" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#prediction"><i class="fa fa-check"></i><b>5.5</b> Prediction</a></li>
+<li class="chapter" data-level="5.6" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#shortcut-methods"><i class="fa fa-check"></i><b>5.6</b> Shortcut methods</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>7</b> Extension to unsupervised learning</a><ul>
-<li class="chapter" data-level="7.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>7.1</b> Invertible Mappings</a></li>
+<li class="chapter" data-level="6" data-path="proposed-interface-using-models.html"><a href="proposed-interface-using-models.html"><i class="fa fa-check"></i><b>6</b> Proposed interface: using models</a></li>
+<li class="chapter" data-level="7" data-path="using-models-interactive-mode.html"><a href="using-models-interactive-mode.html"><i class="fa fa-check"></i><b>7</b> Using models: interactive mode</a></li>
+<li class="chapter" data-level="8" data-path="using-models-programmatic-automated-mode.html"><a href="using-models-programmatic-automated-mode.html"><i class="fa fa-check"></i><b>8</b> Using models: programmatic / automated mode</a></li>
+<li class="chapter" data-level="9" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>9</b> Extension to unsupervised learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>9.1</b> Invertible Mappings</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="best-practices.html"><a href="best-practices.html"><i class="fa fa-check"></i><b>10</b> Best Practices</a></li>
+<li class="chapter" data-level="11" data-path="existing-interfaces.html"><a href="existing-interfaces.html"><i class="fa fa-check"></i><b>11</b> Existing interfaces</a><ul>
+<li class="chapter" data-level="11.1" data-path="existing-interfaces.html"><a href="existing-interfaces.html#scikit-learn"><i class="fa fa-check"></i><b>11.1</b> Scikit-Learn</a></li>
+<li class="chapter" data-level="11.2" data-path="existing-interfaces.html"><a href="existing-interfaces.html#caret"><i class="fa fa-check"></i><b>11.2</b> caret</a></li>
+<li class="chapter" data-level="11.3" data-path="existing-interfaces.html"><a href="existing-interfaces.html#mlr"><i class="fa fa-check"></i><b>11.3</b> mlr</a></li>
+<li class="chapter" data-level="11.4" data-path="existing-interfaces.html"><a href="existing-interfaces.html#idiomatic-modelling-in-r"><i class="fa fa-check"></i><b>11.4</b> Idiomatic modelling in R</a></li>
 </ul></li>
 </ul>
 
@@ -156,7 +164,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>glmnet</code> objects fit with a specific value of <span class="math inline">\(\lambda\)</span> correspond to <code>model</code> objects</li>
 <li><code>cv.glmnet</code> objects correspond to a <code>model family</code> containing performance information for various hyperparameter values</li>
 </ul>
-<p>Once fit, a model family is a set of fit models. There are important differences between model family objects and model objects. For example, we typically perform inference on models rather than model familys.</p>
+<p>Once fit, a model family is a set of fit models. There are important differences between model family objects and model objects. For example, we typically perform inference on models rather than model families.</p>
 
 </div>
             </section>
@@ -183,10 +191,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -210,9 +219,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

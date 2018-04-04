@@ -1,0 +1,21 @@
+# Proposed interface: using models
+
+# Using models: interactive mode
+
+- full fledged diagnostics
+- visual model comparison 
+- in depth performance assessment (and visualizes)
+- small scale prediction
+
+# Using models: programmatic / automated mode
+
+- sanity checking a model / ML unit testing a la Google article
+- prediction on new data (robust to data shittiness)
+
+methods(class="lm")
+also: augment, glance, tidy
+
+
+Garchfit diagnostics
+
+`which` arg to plot is evil
