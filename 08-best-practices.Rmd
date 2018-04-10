@@ -37,32 +37,5 @@ where is the appropriate space in my framework to specify the arma and garch par
  
 calls to `fit` should be pure: i.e. no side effects like plotting, and especially no plotting with invisible object return
  
-Ok -- quite a bit to address here, so bear with me.
-More General Sparse Regression Interfaces
-
-My original comment referred to making a lariat (package)-style interface for glmnet which adapts the infrastructure we have for the lariat to lasso regression. I'm obviously more than a bit biased, but I think our interface is smoother than "raw" glmnetand would prefer to use it for lasso problems as well.
-
-I'm particularly thinking of our:
-
-    ggplot2-based plotting with nice highlighting and labeling selected variables,
-    a "tidy" as.data.frame method (which, come to think of it, should be conditionally tibble-ified)
-    smart formula interfaces (your work in #5)
-    coef and friends with refit and ridge_factor as well as coef(sparsity=n)
-    variants of cross-validation beyond K-fold
-
-and maybe others.
-
-We'd also be able to smooth out some of the rough edges that glmnet keeps for back-compatability. I'm particularly thinking of the scaling of y [1, 2]
-
-We'd still use glmnet internally, but the user would never see that. Instead, we'd have lariat::lasso, lariat::lasso_cv, etc.
-
-Of course, once we've wrapped the lasso / elastic net, also wrapping SCAD and MCP is the next logical step. We could use the ncvreg package as the backend for both.
-
-Once this is in place, we could enrich our formula implementation to automatically use a group penalty where appropriate (factor predictors) based on grpreg and eventually other things.
-
-Would you be interested in doing this? It's a good bit of work and there's definitely no guarantee of wider adoption (glmnet is pretty entrenched). If so, let's talk in January and sketch a real roadmap.
-
-(There's also a bit of a strategic play on my part here: if we have a better interface for lasso regression, folks will have more reason to use the lariat package and from there trying out the lariat method is easier.)
-
 
 

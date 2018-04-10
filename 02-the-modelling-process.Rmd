@@ -2,17 +2,18 @@
 
 People working with data create statistical models for three major reasons:
 
-- To estimate the causal effect of a treatment on a response
+- To describe data and perform exploratory data analysis
+- To estimate the (causal) effect of a treatment on a response
 - To develop a predictive model for some response of interest
-- To perform exploratory data analysis
+
+
+to perform exploratory data analysis: clustering / unsupervised learning to find patterns in the data, supervised learning to look for patterns, assess many less well formed causal / associational questions in data succession, write these findings into a report or dashboard
 
 Once people have data, what do they do with it?
 
 estimate causal effects in an experimental setting: should have a preregistered analysis plan where they hit the data with pregistered known model to get a specific bit of info out. straightforward because they've already done conceptual work of what should go in the model and what kinds the coefficients will mean, etc, etc. diagnostics to make sure the modelling assumptions are met.
 
 to develop a predictive model: look at the data, see what kinds of features you can engineer, fit a shit ton of different models, some particularly smart ones suggested by looking at the data, assessing the performance of each of the models, comparing the models to see which has best performance, making sure that complex models have converged (MCMC or gradient descent), probing each model with stuff like LIME to understand it and see avenues for improvement, combining models into a well-tested ensemble for use in production when the inputs can become all kinds of shit
-
-to perform exploratory data analysis: clustering / unsupervised learning to find patterns in the data, supervised learning to look for patterns, assess many less well formed causal / associational questions in data succession, write these findings into a report or dashboard
 
 Once our data scientist friend has data, the big picture is that they will:
 
