@@ -36,6 +36,18 @@ where is the appropriate space in my framework to specify the arma and garch par
  
  
 calls to `fit` should be pure: i.e. no side effects like plotting, and especially no plotting with invisible object return
+
+function to write out model form and fitted model in latex for sanity checking: some sort of model_report / model_form generic
+
+TODO: LASSO EXAMPLE of wanting to use the coefficients for prediction vs wanting to see the order in which features enter the model
  
+ 
+variable and model specification should happen in formulas, multiple formulas if necessary 
+  - need better tools (or documentation of existing tools): extracting and using the information found in formulae
+  
+  plm package: use of multiple formula sections in same formula to specify instrumental regression
+  vs survey pacakge: use of multiple formulas in separate arguments
+
+
 
 

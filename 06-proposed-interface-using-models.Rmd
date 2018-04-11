@@ -1,5 +1,18 @@
 # Proposed interface: using models
 
+## Performance assessment
+
+During the training process for a model family, the fit method will train a large number of models. Presumably it'd be nice to keep track of all these hyperparameter combinations in a tibble.
+
+We also want to keep track of model performance for each hyperparameter combination. To keep data tidy, this information should live in a separate table where rows correspond to unique models and columns correspond to performance on a particular resampled dataset (i.e. fold).
+
+In some cases users will want multiple or even many performance metrics for each fold. I think it makes sense for each metric to get it's own results table? So users could do
+
+trained_model_family$rmse  # get rmse results on all resampled datasets
+trained_model_family$mae   # same, but for mae
+
+Presumably these tables should include some summary statistics, etc. Not sure how I feel about requiring the user to know the name of the metric to access the results tables.
+
 # Using models: interactive mode
 
 - full fledged diagnostics
@@ -15,7 +28,83 @@
 methods(class="lm")
 also: augment, glance, tidy
 
+My thoughts up to this point have focused on a grammar of fitting models. I am increasingly interested in a grammar of interrogating models. In particular, I think that broom begins to provide a set of verbs for making it convenient to programmatically interrogate models.
+
+However, I think that there's a lot more to do done, especially to define the conceptual interactions you want to have with a fitted model object.
+
+As one example, consider the workflow of something like astsa::sarima, where you always get a massive amount of information about: (1) convergence, (2) correct specification via residual analysis (residual ACF, QQ plot, Ljung-Box p values), (3) metrics like AIC, AICc, BIC, etc, (4) visual of the model fit. This is great to work with interactively since you immediately know if you fit a good model.
+
+On the other hand, predicting and programmatically interacting with astsa::sarima output is like pulling teeth because you have to recreate an astsa::sarima.for call with the same input to forecast for example.
+
+As another example of the tension between these two approaches, consider the general landscape for linear modelling, including penalized regression packages. The output for cv.glmnet and glm methods is drastically different despite researchers being interested in the same information in any cases (the coefficients for example). This suggests a number of different interrogation verbs may be necessary:
+
+    assessment of convergence criteria
+    comparison of performance metrics for difference hyperparameter values
+    in depth assessment of predictive performance (like Harrell's many metrics in rms)
+    assessment of model coefficients to do inference from
+    looking at coefficient paths / inference at the model family level (that is, all of the verbs behind these ideas may behave different for models and for model families)
+    anova / tidyposterior / resamples comparisons of multiple
+    probe it with partial dependence plots, LIME, SHAP, other interpretability type stuff
+    some sort of in-depth run_all_of_the_diagnostics metaverb to make interactive work convenient so you don't have to go back and forth a whole bunch
+    a pick_the_best(model1, model2, ..., modeln, metrics = "AICc") utility that returns the best model object? or is an intermediate comparison object needed? That seems more likely.
+
+These may have both numerical and visual summaries associated with them.
+
+Related: the many nice utilities in existing penalized regression packages how they would fit into a reimagined glm with penalized regression niceities
+
+fitted redundant since predict does the same thing when newdata = NULL in most contexts?
+
+Related: what I presume to be the standard set of methods for probing models in R:
+
+    print
+    summary
+    plot
+    coef
+    residuals
+    predict
+
+As a reference
+
+methods(class="lm")
+#>  [1] add1           alias          anova          case.names    
+#>  [5] coerce         confint        cooks.distance deviance      
+#>  [9] dfbeta         dfbetas        drop1          dummy.coef    
+#> [13] effects        extractAIC     family         formula       
+#> [17] hatvalues      influence      initialize     kappa         
+#> [21] labels         logLik         model.frame    model.matrix  
+#> [25] nobs           plot           predict        print         
+#> [29] proj           qr             residuals      rstandard     
+#> [33] rstudent       show           simulate       slotsFromS3   
+#> [37] summary        variable.names vcov          
+#> see '?methods' for accessing help and source code
+
+
+    fitted
+    logLik
+
+Things that would be nice to do: likelihood ratio tests for mixed models
+
+Why don't nls and lm have the same interface? Would it make sense to have access to these both at once?
+
 
 Garchfit diagnostics
 
 `which` arg to plot is evil
+
+
+Scikit-Learn provides the score method to quickly assess the performance of a model on new data.
+
+Is this a worthwhile thing to provide or too much from Python land and foreign?
+
+Could extract a performance metric from the calibration object and use that to get consistent behavior.
+
+In retrospect, maybe this is broom::glance?
+
+For a single model, it makes sense for broom::glance to return a single row of metrics. For a model family, would it be okay to return multiple rows, one for each set of hyperparameters?
+
+What are "silly things" in terms of modelling? Need someone with a bunch more background here, but the first things that spring to mind are:
+
+    data leakage problems / poor hyperparameter validation / never assessing out of sample error
+    hitting problems blindly with lots of models and getting stuck after that
+
+Can data leakage be at least partially solved by smart fit defaults?

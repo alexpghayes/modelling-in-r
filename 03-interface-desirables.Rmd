@@ -13,9 +13,6 @@ This makes it easy to provide an interface compliant template that researchers c
 
 Since it's most intuitive to think about model families, we want the interface to reflect this. For operations that require an actual `model`, such as prediction, users should be able to pass in `model family` objects, and then have the software automatically extract and use the best `model` in the `model family`. The interface should provide a clear idea of what it means to `fit` a model family, so that interested users can customize hyperparameter spaces and selection techniques. 
 
-Keeping these desirables in mind, let's think about how existing machine learning libraries work.
-
-
 ## Desirables necessary for practicality
 
 **Uses as much language from `Scikit-Learn` as possible**

@@ -25,7 +25,7 @@
 <meta name="author" content="Alex Hayes">
 
 
-<meta name="date" content="2018-04-04">
+<meta name="date" content="2018-04-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -119,11 +119,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.5" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#prediction"><i class="fa fa-check"></i><b>5.5</b> Prediction</a></li>
 <li class="chapter" data-level="5.6" data-path="proposed-interface-model-fitting.html"><a href="proposed-interface-model-fitting.html#shortcut-methods"><i class="fa fa-check"></i><b>5.6</b> Shortcut methods</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="proposed-interface-using-models.html"><a href="proposed-interface-using-models.html"><i class="fa fa-check"></i><b>6</b> Proposed interface: using models</a></li>
+<li class="chapter" data-level="6" data-path="proposed-interface-using-models.html"><a href="proposed-interface-using-models.html"><i class="fa fa-check"></i><b>6</b> Proposed interface: using models</a><ul>
+<li class="chapter" data-level="6.1" data-path="proposed-interface-using-models.html"><a href="proposed-interface-using-models.html#performance-assessment"><i class="fa fa-check"></i><b>6.1</b> Performance assessment</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="using-models-interactive-mode.html"><a href="using-models-interactive-mode.html"><i class="fa fa-check"></i><b>7</b> Using models: interactive mode</a></li>
 <li class="chapter" data-level="8" data-path="using-models-programmatic-automated-mode.html"><a href="using-models-programmatic-automated-mode.html"><i class="fa fa-check"></i><b>8</b> Using models: programmatic / automated mode</a></li>
 <li class="chapter" data-level="9" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html"><i class="fa fa-check"></i><b>9</b> Extension to unsupervised learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#invertible-mappings"><i class="fa fa-check"></i><b>9.1</b> Invertible Mappings</a></li>
+<li class="chapter" data-level="9.2" data-path="extension-to-unsupervised-learning.html"><a href="extension-to-unsupervised-learning.html#unsupervised-transformations-that-are-not-maps"><i class="fa fa-check"></i><b>9.2</b> Unsupervised Transformations That Are Not Maps</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="best-practices.html"><a href="best-practices.html"><i class="fa fa-check"></i><b>10</b> Best Practices</a></li>
 <li class="chapter" data-level="11" data-path="existing-interfaces.html"><a href="existing-interfaces.html"><i class="fa fa-check"></i><b>11</b> Existing interfaces</a><ul>
@@ -156,8 +159,57 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>prediction on new data (robust to data shittiness)</li>
 </ul>
 <p>methods(class=“lm”) also: augment, glance, tidy</p>
+<p>My thoughts up to this point have focused on a grammar of fitting models. I am increasingly interested in a grammar of interrogating models. In particular, I think that broom begins to provide a set of verbs for making it convenient to programmatically interrogate models.</p>
+<p>However, I think that there’s a lot more to do done, especially to define the conceptual interactions you want to have with a fitted model object.</p>
+<p>As one example, consider the workflow of something like astsa::sarima, where you always get a massive amount of information about: (1) convergence, (2) correct specification via residual analysis (residual ACF, QQ plot, Ljung-Box p values), (3) metrics like AIC, AICc, BIC, etc, (4) visual of the model fit. This is great to work with interactively since you immediately know if you fit a good model.</p>
+<p>On the other hand, predicting and programmatically interacting with astsa::sarima output is like pulling teeth because you have to recreate an astsa::sarima.for call with the same input to forecast for example.</p>
+<p>As another example of the tension between these two approaches, consider the general landscape for linear modelling, including penalized regression packages. The output for cv.glmnet and glm methods is drastically different despite researchers being interested in the same information in any cases (the coefficients for example). This suggests a number of different interrogation verbs may be necessary:</p>
+<pre><code>assessment of convergence criteria
+comparison of performance metrics for difference hyperparameter values
+in depth assessment of predictive performance (like Harrell&#39;s many metrics in rms)
+assessment of model coefficients to do inference from
+looking at coefficient paths / inference at the model family level (that is, all of the verbs behind these ideas may behave different for models and for model families)
+anova / tidyposterior / resamples comparisons of multiple
+probe it with partial dependence plots, LIME, SHAP, other interpretability type stuff
+some sort of in-depth run_all_of_the_diagnostics metaverb to make interactive work convenient so you don&#39;t have to go back and forth a whole bunch
+a pick_the_best(model1, model2, ..., modeln, metrics = &quot;AICc&quot;) utility that returns the best model object? or is an intermediate comparison object needed? That seems more likely.</code></pre>
+<p>These may have both numerical and visual summaries associated with them.</p>
+<p>Related: the many nice utilities in existing penalized regression packages how they would fit into a reimagined glm with penalized regression niceities</p>
+<p>fitted redundant since predict does the same thing when newdata = NULL in most contexts?</p>
+<p>Related: what I presume to be the standard set of methods for probing models in R:</p>
+<pre><code>print
+summary
+plot
+coef
+residuals
+predict</code></pre>
+<p>As a reference</p>
+<p>methods(class=“lm”) #&gt; [1] add1 alias anova case.names<br />
+#&gt; [5] coerce confint cooks.distance deviance<br />
+#&gt; [9] dfbeta dfbetas drop1 dummy.coef<br />
+#&gt; [13] effects extractAIC family formula<br />
+#&gt; [17] hatvalues influence initialize kappa<br />
+#&gt; [21] labels logLik model.frame model.matrix<br />
+#&gt; [25] nobs plot predict print<br />
+#&gt; [29] proj qr residuals rstandard<br />
+#&gt; [33] rstudent show simulate slotsFromS3<br />
+#&gt; [37] summary variable.names vcov<br />
+#&gt; see ‘?methods’ for accessing help and source code</p>
+<pre><code>fitted
+logLik</code></pre>
+<p>Things that would be nice to do: likelihood ratio tests for mixed models</p>
+<p>Why don’t nls and lm have the same interface? Would it make sense to have access to these both at once?</p>
 <p>Garchfit diagnostics</p>
 <p><code>which</code> arg to plot is evil</p>
+<p>Scikit-Learn provides the score method to quickly assess the performance of a model on new data.</p>
+<p>Is this a worthwhile thing to provide or too much from Python land and foreign?</p>
+<p>Could extract a performance metric from the calibration object and use that to get consistent behavior.</p>
+<p>In retrospect, maybe this is broom::glance?</p>
+<p>For a single model, it makes sense for broom::glance to return a single row of metrics. For a model family, would it be okay to return multiple rows, one for each set of hyperparameters?</p>
+<p>What are “silly things” in terms of modelling? Need someone with a bunch more background here, but the first things that spring to mind are:</p>
+<pre><code>data leakage problems / poor hyperparameter validation / never assessing out of sample error
+hitting problems blindly with lots of models and getting stuck after that</code></pre>
+<p>Can data leakage be at least partially solved by smart fit defaults?</p>
 
 </div>
             </section>

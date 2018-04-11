@@ -6,29 +6,46 @@ People working with data create statistical models for three major reasons:
 - To estimate the (causal) effect of a treatment on a response
 - To develop a predictive model for some response of interest
 
+> A model is often the best descriptive statistic.  -Frank Harrell on Twitter
 
-to perform exploratory data analysis: clustering / unsupervised learning to find patterns in the data, supervised learning to look for patterns, assess many less well formed causal / associational questions in data succession, write these findings into a report or dashboard
+https://twitter.com/f2harrell/status/983675033200549888 
 
-Once people have data, what do they do with it?
+**Exploratory data analysis** might consist of:
 
-estimate causal effects in an experimental setting: should have a preregistered analysis plan where they hit the data with pregistered known model to get a specific bit of info out. straightforward because they've already done conceptual work of what should go in the model and what kinds the coefficients will mean, etc, etc. diagnostics to make sure the modelling assumptions are met.
+- using unsupervised learning techniques to find patterns
+- using supervised learning to look for patterns
+- ask and answer many rapidly formed causal / associational questions in quick succession succession
+- sharing these findings with others in technical or non-technical reports
 
-to develop a predictive model: look at the data, see what kinds of features you can engineer, fit a shit ton of different models, some particularly smart ones suggested by looking at the data, assessing the performance of each of the models, comparing the models to see which has best performance, making sure that complex models have converged (MCMC or gradient descent), probing each model with stuff like LIME to understand it and see avenues for improvement, combining models into a well-tested ensemble for use in production when the inputs can become all kinds of shit
+**(Causal) inference** might consist of:
+
+- following a preregistered analysis plan to use a several well specified models to the data
+- Diagnostics to make sure modelling assumptions are satisfied
+
+This is in theory straightforward if you've already done the conceptual work to figure out what should go in your model and what type of model you should fit, what the coefficents will mean, etc, etc. But in a more exploratory analysis you might brainstorm and try several different models to see which are appropriate for the data, and also you might need to select one of several potentially appropriate models.
+
+**Developing a predictive model** might consist of:
+
+- Looking at the data and seeing what kinds of features you can engineer
+- Fitting a metric ton of models, some particularly smart ones suggested by looking at the data
+- Assessing the performance of each of the models
+- Comparing the models to see which has best performance
+- Making sure that complex models have converged (MCMC or gradient descent)
+- Probing each model with stuff like LIME to understand it and see avenues for improvement
+- Combining models into a well-tested ensemble for use in production when the inputs can become all kinds of nonsense
 
 Once our data scientist friend has data, the big picture is that they will:
 
 1. Spend most of their time cleaning and [tidying](http://vita.had.co.nz/papers/tidy-data.html) the data to get it into a bare minimum usable format. 
 
-2. Brainstorm up appropriate models to provide solutions for their inferential, predictive and exploratory tasks.
+2. Brainstorm up appropriate models and model families to provide solutions for their inferential, predictive and exploratory tasks.
 
-3. Fit a variety, perhaps many thousands, or these models to the data, which wanting to compare and iterator through the various 
+3. Fit a variety, perhaps many thousands, or these models and model families to the data, which wanting to compare and iterator through the various 
 
 4. Diagnose model fit, check model convergence, compare model performance, visualize model coefficients, predict on new data, etc. Look at model parameters. Compare model statistics for many models. Assess a model for many values of a hyperparameter.
 
 5. Somehow turn this into a meaningful piece of information, business product, or a report to share with other people.
 
 The goal is to focus on steps (3) and (4) in the hopes that coherent conceptual frame work will emerge. Whether the key aspect of this framwork is "tidyness" or something else that I think remains to be seen.
-
-TODO: be careful to use the term model and model family appropriately in the steps above
 
 Next we discuss some general properties that will make a modelling library desirable, both in terms of conceptual organization and practical considerations.

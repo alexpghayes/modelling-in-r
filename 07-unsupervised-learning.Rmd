@@ -18,3 +18,9 @@ X_recovered <- untransform(pca_model, Z)  # untransform performs inverse mapping
 ```
 
 and then you could provide the standard wrappers like `fit_transform`, `fit_untransform`, etc.
+
+## Unsupervised Transformations That Are Not Maps
+
+It's worth thinking about unsupervised techniques like t-SNE because you can transform data, but you can't ever fit a (non-parametric) t-SNE model because t-SNE doesn't define a function mapping data to a new space.
+
+Offer a `transform` method for these but no `fit`?

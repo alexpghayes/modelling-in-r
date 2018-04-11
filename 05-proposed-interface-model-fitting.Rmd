@@ -1,10 +1,12 @@
 # Proposed interface: model fitting
 
-Okay, now that we've taken a look at some interfaces, let's imagine an interface that makes operations on `model` and `model family`s feel natural in R.
+Let's imagine an interface that makes operations on `model` and `model family`s feel natural in R. We begin by discussing the process of fitting `models` and `model families`, primarily from the perspective of predictive models.
 
+In some sense, you can work with a model by fitting a model family on a hyperparameter grid containing a single point. This is the approach caret takes, and I believe the one present in the current interface proposal.
 
+I think is minorly problematic in terms of conceptual clarity, but majorly problematic in terms of implementation of new models. If you're implementing a new modelling technique, it makes a lot more sense to first write a fit method for models (i.e. glmnet::glmnet) and then to write a fit method (i.e. hyperparameter selection method) that may make heavy use of fit.model.
 
-Next we discuss the process of fitting `models` and `model families`, primarily from the perspective of fitting predictive models.
+I want this separation because I think it'll be key to selling an interface to people writing new methods
 
 ## Fitting a `model` object
 
@@ -73,13 +75,27 @@ TODO: min RMSE, or min RMSE within 1-SE following Breiman
 
 ### Hyperparameter space definition
 
+To my knowledge, the various hyperparameter search methods use hyperparameter spaces defined as:
+
+    - Probability distributions over HP space (random search algorithms)
+    - Fixed sets of points in HP space (grid search, possibly Gaussian procress or tree Parzen estimators as an initial grid)
+
+GP/TPE could also use a probability distribution initially, with some smart initial sampling scheme to pick initial points. This is what mlrMBO does. auto-sklearn provides an initial grid for GP/TPE based on hyperparameter values that work well on a library of previous datasets and calls the approach "metalearning."
+
+So presumable we want hp_dist and hp_grid objects that both subclass hp_space objects. We could even provide semi-sane translation between the two.
+
+    hp_grid_to_dist would guess the domain of the hyperparameters
+    hp_dist_to_grid could sample at quantiles or on a latin space design or whatever is smartest
+
+To specify hp_dist objects we should look at Hyperopt specifications. Doing things on log scale will probably be important, and we should think about important transformations for hyperparameters and how to handle them.
+
+More broadly, the model/model family framework can extend beyond supervised learning. For k-means, you might want a fit.k_means_family to select k according to some reasonable strategy. Just something to keep in mind.
+
 For now, I'm going to assume that the problem of hyperparameter space definition has been solved, and that there are nice `hp_space` objects that contain this information. 
 
 ### Hyperparameter search
 
 Similarly, let's assume that there are standard functions for searching through hyperparameter space of class `hp_search`.
-
-See the [github issues](https://github.com/alexpghayes/modelling-in-r/issues) for some thoughts on what these might look like.
 
 ### Model and model family objects
 
